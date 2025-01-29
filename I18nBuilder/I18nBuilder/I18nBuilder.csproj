@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+	<LangVersion>latestMajor</LangVersion>
+    <Nullable>enable</Nullable>
+	  <!--Add-->
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <!--Add -->
+	  <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\I18nBuilderGenerator\I18nBuilderGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+</Project>
