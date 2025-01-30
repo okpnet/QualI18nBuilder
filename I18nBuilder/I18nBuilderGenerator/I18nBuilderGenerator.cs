@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.IO;
@@ -12,7 +13,7 @@ namespace I18nBuilderGenerator
 {
 
 
-    [Generator]
+    [Generator(LanguageNames.CSharp)]
     public class I18nBuilderGenerator : IIncrementalGenerator
     {
         public void Initialize(IncrementalGeneratorInitializationContext context)
@@ -22,6 +23,30 @@ namespace I18nBuilderGenerator
             {
                 Debugger.Launch();
             }
+            var projectName = string.Empty;
+            var dirName = AppDomain.CurrentDomain.BaseDirectory;
+            var nameSpace=string.Empty;
+
+            
+
+            context.RegisterSourceOutput(context.AnalyzerConfigOptionsProvider, (cx, source) =>
+            { 
+                source.GlobalOptions.TryGetValue("build_properifty.RootNamespace", out nameSpace);
+                //if (!source.GlobalOptions.TryGetValue("MSBuildProjectName", out projectName)|
+                //    !source.GlobalOptions.TryGetValue("build_property.ProjectDir",out dirName))
+                //{
+                //    throw new AccessViolationException();
+                //}
+
+            });
+            context.RegisterSourceOutput(
+                context.CompilationProvider,
+                (cx, complattion) =>
+                {
+                    projectName = complattion.Assembly.Name;
+                });
+            //context.AnalyzerConfigOptionsProvider.
+            //context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.ProjectDir", out var projectDir)
             // Msgフォルダ内のJSONファイルを取得
             var jsonFiles = context.AdditionalTextsProvider
                 .Where(file => file.Path.EndsWith(".json"))

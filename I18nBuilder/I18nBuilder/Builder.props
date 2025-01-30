@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<ItemGroup>
+		<!-- ソースジェネレーターをコンパイル時に適用 -->
+		<Analyzer Include="$(MSBuildThisFileDirectory)../analyzers/dotnet/cs/I18nBuilder.dll" />
+
+		<!-- JSON ファイルを追加情報として認識 -->
+		<AdditionalFiles Include="$(MSBuildThisFileDirectory)../i18n/*.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<CompilerVisibleProperty Include="RootNamespace" />
+	</ItemGroup>
+</Project>
