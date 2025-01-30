@@ -37,7 +37,7 @@ namespace I18nBuilder
 
             string i18nPath = Path.Combine(projectDir, "i18n");
             if (!Directory.Exists(i18nPath)) return;
-
+            
             foreach (var jsonFile in Directory.GetFiles(i18nPath, "*.json"))
             {
                 string fileName = Path.GetFileNameWithoutExtension(jsonFile);
