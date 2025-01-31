@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 
@@ -59,6 +60,16 @@ namespace I18nBuilder
         private static string ToValidClassName(string fileName)
         {
             return SyntaxFacts.IsValidIdentifier(fileName) ? fileName : $"Msg_{fileName}";
+        }
+
+        private void FileRead(string jsonFilePath)
+        {
+            if(!File.Exists(jsonFilePath)) return;
+            using var streamReder = new StreamReader(jsonFilePath, Encoding.UTF8);
+            var buffer= streamReder.ReadToEnd();
+            var jsonBuilder=JsonDocument.Parse(buffer);
+            var languages = jsonBuilder.RootElement.EnumerateObject().Select(t => t.Name);
+
         }
 
         private static string GenerateClassCode(string namespaceName, string className, string jsonFilePath)
