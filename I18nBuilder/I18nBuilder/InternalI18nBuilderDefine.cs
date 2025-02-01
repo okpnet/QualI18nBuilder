@@ -4,7 +4,7 @@ using System.Text;
 
 namespace I18nBuilder
 {
-    internal class InternalDefine
+    internal class InternalI18nBuilderDefine
     {
         public const string I18N_DIR = "i18n";
     }

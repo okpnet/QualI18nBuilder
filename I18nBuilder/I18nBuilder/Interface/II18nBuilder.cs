@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
+using global::System.Threading.Tasks;
 
-namespace I18nBuilder.Interface
+namespace  I18nBuilder.Interface
 {
     public interface II18nBuilder
     {

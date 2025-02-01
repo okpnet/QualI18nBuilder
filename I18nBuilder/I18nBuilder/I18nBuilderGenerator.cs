@@ -1,8 +1,7 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using I18nBuilder.Extension;
+using I18nBuilder.Template;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Text;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -32,20 +31,70 @@ namespace I18nBuilder
             // テストプロジェクトの名前空間を取得枠
             string projectNamespace = context.Compilation.AssemblyName ?? "I18nBuilderGenerator";
 
+            CreateInterface(context,projectNamespace);
+            CreateService(context, projectNamespace);
+            CreateLogic(context, projectNamespace);
+
+
             // MSGLibTest プロジェクト直下の i18n ディレクトリを探索
             string? projectDir = GetProjectDirectory(context);
             if (projectDir == null) return;
 
-            string i18nPath = Path.Combine(projectDir, "i18n");
+            string i18nPath = Path.Combine(projectDir, InternalI18nBuilderDefine.I18N_DIR);
             if (!Directory.Exists(i18nPath)) return;
             
             foreach (var jsonFile in Directory.GetFiles(i18nPath, "*.json"))
             {
-                string fileName = Path.GetFileNameWithoutExtension(jsonFile);
-                string className = ToValidClassName(fileName);
-                string generatedCode = GenerateClassCode(projectNamespace, className, jsonFile);
-                context.AddSource($"{className}.g.cs", SourceText.From(generatedCode, Encoding.UTF8));
+                var fileName = Path.GetFileNameWithoutExtension(jsonFile);
+                var className = ToValidClassName(fileName);
+                var keys = GenerateClassCode(projectNamespace, className, jsonFile);
+                var translationClassTemplate = new TranslationClassTemplate(projectNamespace, keys,className);
+                var translationClassCode = translationClassTemplate.TransformText();
+                context.AddSource($"{className}.g.cs", translationClassCode);
+
+                //context.AddSource($"{className}.g.cs", SourceText.From(generatedCode, Encoding.UTF8));
             }
+        }
+
+        private static void CreateInterface(GeneratorExecutionContext context,string nameSpace)
+        {
+            var iI18nTranslationTemplate = new II18nTranslationTemplate(nameSpace);
+            var iI18nTranslationTemplateCode = iI18nTranslationTemplate.TransformText();
+            context.AddSource($"II18nTranslation.g.cs", iI18nTranslationTemplateCode);
+
+            var iI18nBuilderTemplate = new II18nBuilderTemplate(nameSpace);
+            var iI18nBuilderCode = iI18nBuilderTemplate.TransformText();
+            context.AddSource($"II18nBuilder.g.cs", iI18nBuilderCode);
+
+            var iI18nDefaultServiceTemplate = new II18nDefaultServiceTemplate(nameSpace);
+            var iI18nDefaultServiceCode = iI18nDefaultServiceTemplate.TransformText();
+            context.AddSource($"II18nDefaultService.g.cs", iI18nDefaultServiceCode);
+        }
+
+        private static void CreateService(GeneratorExecutionContext context, string nameSpace)
+        {
+            var i18nServiceExtensionTemplate = new I18nServiceExtensionTemplate(nameSpace);
+            var i18nServiceExtensionCode = i18nServiceExtensionTemplate.TransformText();
+            context.AddSource($"I18nServiceExtension.g.cs", i18nServiceExtensionCode);
+
+            var i18nServiceTemplate = new I18nServiceTemplate(nameSpace);
+            var i18nServiceCode = i18nServiceTemplate.TransformText();
+            context.AddSource($"I18nService.g.cs", i18nServiceCode);
+
+            var i18nBuilderOptionTemplate = new I18nBuilderOptionTemplate(nameSpace);
+            var i18nBuilderOptionCode = i18nBuilderOptionTemplate.TransformText();
+            context.AddSource($"I18nBuilderOption.g.cs", i18nBuilderOptionCode);
+        }
+
+        private static void CreateLogic(GeneratorExecutionContext context, string nameSpace) 
+        {
+            var i18nBuilderExceptionTemplate = new I18nBuilderExceptionTemplate(nameSpace);
+            var i18nBuilderExceptionCode = i18nBuilderExceptionTemplate.TransformText();
+            context.AddSource($"i18nBuilderException.g.cs", i18nBuilderExceptionCode);
+
+            var translationBuilderTemplate = new TranslationBuilderTemplate(nameSpace);
+            var translationBuilderCode = translationBuilderTemplate.TransformText();
+            context.AddSource($"TranslationBuilder.g.cs", translationBuilderCode);
         }
 
         private static string? GetProjectDirectory(GeneratorExecutionContext context)
@@ -72,25 +121,28 @@ namespace I18nBuilder
 
         }
 
-        private static string GenerateClassCode(string namespaceName, string className, string jsonFilePath)
+        private string[] GenerateClassCode(string namespaceName, string className, string jsonFilePath)
         {
             var jsonContent = File.ReadAllText(jsonFilePath);
-            var properties = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent);
-            if (properties == null) return string.Empty;
+            var keys=JsonGeneratorExtension.JsonValidationToKey(jsonContent);
+            return keys.ToArray();
 
-            var sb = new StringBuilder();
-            sb.AppendLine("// <auto-generated/>");
-            sb.AppendLine("using System.Collections.Generic;");
-            sb.AppendLine("namespace " + namespaceName + " {");
-            sb.AppendLine($"    public static partial class {className} {{");
-            foreach (var kvp in properties)
-            {
-                string propertyName = ToValidClassName(kvp.Key);
-                sb.AppendLine($"        public static string {propertyName} => \"{kvp.Value}\";");
-            }
-            sb.AppendLine("    }");
-            sb.AppendLine("}");
-            return sb.ToString();
+            //var sb = new StringBuilder();
+            //sb.AppendLine("// <auto-generated/>");
+            //sb.AppendLine("using System.Collections.Generic;");
+            //sb.AppendLine("using I18nBuilder.Interface;");
+            //sb.AppendLine("namespace " + namespaceName);
+            //sb.AppendLine("{");
+            //sb.AppendLine($"    public partial class {className} : {nameof(II18nTranslation)}");
+            //sb.AppendLine($"    {{");
+            //foreach (var key in keys)
+            //{
+            //    string propertyName = ToValidClassName(key);
+            //    sb.AppendLine($"        public string {propertyName} {{ get; set; }};");
+            //}
+            //sb.AppendLine("    }");
+            //sb.AppendLine("}");
+            //return sb.ToString();
         }
     }
 

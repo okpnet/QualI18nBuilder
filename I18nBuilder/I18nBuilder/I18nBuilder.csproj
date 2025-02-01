@@ -11,6 +11,54 @@
 	  <IsRoslynAnalyzer>true</IsRoslynAnalyzer>
 	  <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Template\I18nBuilderExceptionTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>I18nBuilderExceptionTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Template\I18nBuilderOptionTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>I18nBuilderOptionTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Template\I18nServiceExtensionTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>I18nServiceExtensionTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Template\I18nServiceTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>I18nServiceTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Template\II18nBuilderTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>II18nBuilderTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Template\II18nDefaultServiceTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>II18nDefaultServiceTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Template\II18nTranslationTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>II18nTranslationTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Template\TranslationBuilderTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TranslationBuilderTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Template\TranslationClassTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TranslationClassTemplate.tt</DependentUpon>
+    </None>
+  </ItemGroup>
 	<ItemGroup>
 		<None Update="i18n/*.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -19,16 +67,104 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" PrivateAssets="all" GeneratePathProperty="true"/>
 		<PackageReference Include="System.Text.Json" Version="9.0.1" PrivateAssets="all" GeneratePathProperty="true" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="Builder.props">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="Template\I18nBuilderExceptionTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>I18nBuilderExceptionTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\I18nBuilderOptionTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>I18nBuilderOptionTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\I18nServiceExtensionTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>I18nServiceExtensionTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\I18nServiceTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>I18nServiceTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\II18nBuilderTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>II18nBuilderTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\II18nDefaultServiceTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>II18nDefaultServiceTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\II18nTranslationTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>II18nTranslationTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\TranslationBuilderTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>TranslationBuilderTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\TranslationClassTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>TranslationClassTemplate.cs</LastGenOutput>
+	  </None>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="5.0.1" PrivateAssets="all" />
+	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Template\I18nBuilderExceptionTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>I18nBuilderExceptionTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\I18nBuilderOptionTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>I18nBuilderOptionTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\I18nServiceExtensionTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>I18nServiceExtensionTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\I18nServiceTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>I18nServiceTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\I18nTransactionInterfaceTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>I18nTransactionInterfaceTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\II18nBuilderTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>II18nBuilderTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\II18nDefaultServiceTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>II18nDefaultServiceTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\II18nTranslationTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>II18nTranslationTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\TranslationBuilderTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>TranslationBuilderTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\TranslationClassTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>TranslationClassTemplate.tt</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<PropertyGroup>
