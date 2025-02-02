@@ -71,8 +71,8 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" GeneratePathProperty="true"/>
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" GeneratePathProperty="true"/>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" GeneratePathProperty="true" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" GeneratePathProperty="true" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" PrivateAssets="all" GeneratePathProperty="true" />
 		<PackageReference Include="System.Text.Json" Version="9.0.1" PrivateAssets="all" GeneratePathProperty="true" />
 	</ItemGroup>
@@ -184,6 +184,12 @@
 
 	<PropertyGroup>
 		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Copyright>MIT</Copyright>
+		<Title>I18nBuilder</Title>
+		<Version>1.0.0</Version>
+		<Authors>Hayato takahashi</Authors>
+		<Company>Hayato takahashi</Company>
 	</PropertyGroup>
 
 	<Target Name="GetDependencyTargetPaths" AfterTargets="ResolvePackageDependenciesForBuild">
