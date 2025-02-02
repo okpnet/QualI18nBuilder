@@ -1,16 +1,15 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
-using global::System.Threading.Tasks;
+﻿using global::System.Threading.Tasks;
 
-namespace  I18nBuilder.Interface
+namespace I18nBuilder.Interface
 {
     public interface II18nBuilder
     {
+        string[] Laangeuages { get; }
 
-        Task ChangeLocalizeAsync(string language);
+        string CurrentLanguage { get; }
+
+        string DefaultLanguage { get; }
+        Task<bool> ChangeLocalizeAsync(string language);
 
         Task<T> CreateTranslationsAsync<T>() where T: class,II18nTranslation,new();
     }

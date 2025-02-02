@@ -1,0 +1,26 @@
+﻿@page "/fetchdata"
+
+@*@inject IInitService Inits*@
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+	<table class="table">
+		<thead>
+		<tr>
+				<th>Date</th>
+				<th>Temp. (C)</th>
+				<th>Temp. (F)</th>
+				<th>Summary</th>
+			</tr>
+		</thead>
+
+	</table>
+@code {
+	protected override void OnInitialized()
+	{
+		var test = App.Current.MainWindow.Resources["services"] as IServiceProvider;
+		base.OnInitialized();
+	}
+}

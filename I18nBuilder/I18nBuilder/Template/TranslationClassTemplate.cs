@@ -35,7 +35,14 @@ namespace I18nBuilder.Template
             
             #line default
             #line hidden
-            this.Write(".I18nBuilder.Interface;\r\n\r\nnamespace I18nBuilder\r\n{\r\n    public partial class ");
+            this.Write(".I18nBuilder.Interface;\r\n\r\nnamespace ");
+            
+            #line 10 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
+            
+            #line default
+            #line hidden
+            this.Write(".I18nBuilder\r\n{\r\n    public partial class ");
             
             #line 12 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
@@ -64,7 +71,7 @@ namespace I18nBuilder.Template
 
         PushIndent("        ");
         foreach(var menber in Keys){
-            WriteLine($"public string? {menber} {{ get; set; }}");   
+            WriteLine($"public string {menber} {{ get; set; }}");   
         }
         ClearIndent();
         

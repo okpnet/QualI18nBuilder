@@ -18,9 +18,9 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nBuilderTemplate.tt"
+    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nTranslaterTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class II18nBuilderTemplate : II18nBuilderTemplateBase
+    public partial class II18nTranslaterTemplate : II18nTranslaterTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,28 +28,16 @@ namespace I18nBuilder.Template
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System.Threading.Tasks;\r\n\r\nnamespace ");
+            this.Write("\r\nnamespace ");
             
-            #line 10 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nBuilderTemplate.tt"
+            #line 8 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nTranslaterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
-            this.Write(@".I18nBuilder.Interface
-{
-    public interface II18nBuilder
-    {
-        string[] Laangeuages { get; }
-
-        string CurrentLanguage { get; }
-        
-        string DefaultLanguage { get; }
-
-        Task<bool> ChangeLocalizeAsync(string language);
-
-        Task<T> CreateTranslationsAsync<T>() where T: class,II18nTranslation,new();
-    }
-}");
+            this.Write(".I18nBuilder.Interface\r\n{\r\n    public interface II18nTranslater\r\n    {\r\n        I" +
+                    "I18nTranslation I18nTranslation { get; }\r\n\r\n        void SetValue(II18nTranslati" +
+                    "on value);\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -61,7 +49,7 @@ namespace I18nBuilder.Template
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class II18nBuilderTemplateBase
+    public class II18nTranslaterTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

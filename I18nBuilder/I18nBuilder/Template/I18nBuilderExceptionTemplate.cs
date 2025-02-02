@@ -28,14 +28,14 @@ namespace I18nBuilder.Template
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using global::System.Runtime.Serialization;\r\n\r\nnamespace global::");
+            this.Write("using global::System.Runtime.Serialization;\r\n\r\nnamespace ");
             
             #line 9 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nBuilderExceptionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
-            this.Write(@"//.I18nBuilder.I18nException
+            this.Write(@".I18nBuilder.I18nException
 {
     public sealed class I18nBuilderException : Exception
     {

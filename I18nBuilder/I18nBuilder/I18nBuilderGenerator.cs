@@ -20,10 +20,10 @@ namespace I18nBuilder
         {
             // デバッグ用: ソースジェネレーターの起動を確認
             ///デバッグ
-            if (!Debugger.IsAttached)
-            {
-                Debugger.Launch();
-            }
+            //if (!Debugger.IsAttached)
+            //{
+            //    Debugger.Launch();
+            //}
         }
 
         public void Execute(GeneratorExecutionContext context)
@@ -69,6 +69,10 @@ namespace I18nBuilder
             var iI18nDefaultServiceTemplate = new II18nDefaultServiceTemplate(nameSpace);
             var iI18nDefaultServiceCode = iI18nDefaultServiceTemplate.TransformText();
             context.AddSource($"II18nDefaultService.g.cs", iI18nDefaultServiceCode);
+
+            var iI18nTranslaterTemplate = new II18nTranslaterTemplate(nameSpace);
+            var iI18nTranslaterCode = iI18nTranslaterTemplate.TransformText();
+            context.AddSource($"II18nTranslater.g.cs", iI18nTranslaterCode);
         }
 
         private static void CreateService(GeneratorExecutionContext context, string nameSpace)

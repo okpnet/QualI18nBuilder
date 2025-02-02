@@ -7,7 +7,7 @@
 
 using <#=ProjectNamespace#>.I18nBuilder.Interface;
 
-namespace I18nBuilder
+namespace <#=ProjectNamespace#>.I18nBuilder
 {
     public partial class <#=ClassName#>:II18nTranslation  
     {
@@ -31,7 +31,7 @@ namespace I18nBuilder
         <#
         PushIndent("        ");
         foreach(var menber in Keys){
-            WriteLine($"public string? {menber} {{ get; set; }}");   
+            WriteLine($"public string {menber} {{ get; set; }}");   
         }
         ClearIndent();
         #>

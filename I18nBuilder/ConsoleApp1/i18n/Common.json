@@ -1,0 +1,10 @@
+﻿{
+  "en": {
+    "Unit": "item unit",
+    "ExceptionMsg": "exception occurred"
+  },
+  "ja": {
+    "Unit": "単位",
+    "ExceptionMsg": "例外が発生しました"
+  }
+}

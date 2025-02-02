@@ -10,6 +10,7 @@
 	  <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 	  <IsRoslynAnalyzer>true</IsRoslynAnalyzer>
 	  <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+	  <IsRoslynComponent>true</IsRoslynComponent>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,6 +44,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>II18nDefaultServiceTemplate.tt</DependentUpon>
     </None>
+    <None Include="Template\II18nTranslaterTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>II18nTranslaterTemplate.tt</DependentUpon>
+    </None>
     <None Include="Template\II18nTranslationTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -65,9 +71,9 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" PrivateAssets="all" GeneratePathProperty="true"/>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" GeneratePathProperty="true"/>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" GeneratePathProperty="true"/>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" PrivateAssets="all" GeneratePathProperty="true" />
 		<PackageReference Include="System.Text.Json" Version="9.0.1" PrivateAssets="all" GeneratePathProperty="true" />
 	</ItemGroup>
 	<ItemGroup>
@@ -97,6 +103,10 @@
 	  <None Update="Template\II18nDefaultServiceTemplate.tt">
 	    <Generator>TextTemplatingFilePreprocessor</Generator>
 	    <LastGenOutput>II18nDefaultServiceTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\II18nTranslaterTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>II18nTranslaterTemplate.cs</LastGenOutput>
 	  </None>
 	  <None Update="Template\II18nTranslationTemplate.tt">
 	    <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -149,6 +159,11 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>II18nDefaultServiceTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\II18nTranslaterTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>II18nTranslaterTemplate.tt</DependentUpon>
 	  </Compile>
 	  <Compile Update="Template\II18nTranslationTemplate.cs">
 	    <DesignTime>True</DesignTime>

@@ -6,7 +6,7 @@
 <#@ output extension=".cs" #>
 using global::System.Runtime.Serialization;
 
-namespace global::<#=ProjectNamespace#>//.I18nBuilder.I18nException
+namespace <#=ProjectNamespace#>.I18nBuilder.I18nException
 {
     public sealed class I18nBuilderException : Exception
     {

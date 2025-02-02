@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18nBuilder", "I18nBuilder\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I18nBuilderrTest", "I18nBuilderrTest\I18nBuilderrTest.csproj", "{2B0A163E-2F12-4DF2-839C-B47E584105CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{BC808ABC-A0E5-47AF-AEEB-DA56BAF08F7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfBlazorI18nTest", "WpfBlazorI18nTest\WpfBlazorI18nTest.csproj", "{A1F5EBA1-21EF-479D-AE04-F796EC37E0E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{2B0A163E-2F12-4DF2-839C-B47E584105CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B0A163E-2F12-4DF2-839C-B47E584105CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B0A163E-2F12-4DF2-839C-B47E584105CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC808ABC-A0E5-47AF-AEEB-DA56BAF08F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC808ABC-A0E5-47AF-AEEB-DA56BAF08F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC808ABC-A0E5-47AF-AEEB-DA56BAF08F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC808ABC-A0E5-47AF-AEEB-DA56BAF08F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1F5EBA1-21EF-479D-AE04-F796EC37E0E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1F5EBA1-21EF-479D-AE04-F796EC37E0E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1F5EBA1-21EF-479D-AE04-F796EC37E0E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1F5EBA1-21EF-479D-AE04-F796EC37E0E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
