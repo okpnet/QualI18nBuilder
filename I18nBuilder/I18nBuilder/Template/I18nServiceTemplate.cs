@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class I18nServiceTemplate : I18nServiceTemplateBase
     {
@@ -30,21 +30,21 @@ namespace I18nBuilder.Template
         {
             this.Write("\r\nusing ");
             
-            #line 8 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+            #line 8 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(".I18nBuilder.Extension;\r\nusing ");
             
-            #line 9 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+            #line 9 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(".I18nBuilder.Interface;\r\nusing System.Linq;\r\n\r\nnamespace ");
             
-            #line 12 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+            #line 12 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default

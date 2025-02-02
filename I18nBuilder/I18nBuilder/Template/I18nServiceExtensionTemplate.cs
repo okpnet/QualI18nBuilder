@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class I18nServiceExtensionTemplate : I18nServiceExtensionTemplateBase
     {
@@ -30,14 +30,14 @@ namespace I18nBuilder.Template
         {
             this.Write("\r\nusing ");
             
-            #line 8 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
+            #line 8 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(".I18nBuilder.Interface;\r\nusing ");
             
-            #line 9 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
+            #line 9 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
@@ -45,7 +45,7 @@ namespace I18nBuilder.Template
             this.Write(".I18nBuilder.Service;\r\nusing Microsoft.Extensions.DependencyInjection;\r\nusing Sys" +
                     "tem;\r\nusing System.Linq;\r\n\r\nnamespace ");
             
-            #line 14 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
+            #line 14 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default

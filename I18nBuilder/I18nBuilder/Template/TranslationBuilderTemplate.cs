@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class TranslationBuilderTemplate : TranslationBuilderTemplateBase
     {
@@ -30,7 +30,7 @@ namespace I18nBuilder.Template
         {
             this.Write("\r\nusing ");
             
-            #line 8 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
+            #line 8 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
@@ -49,7 +49,7 @@ using System.Threading.Tasks;
 
 namespace ");
             
-            #line 20 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
+            #line 20 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default

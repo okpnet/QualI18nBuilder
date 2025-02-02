@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nBuilderExceptionTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nBuilderExceptionTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class I18nBuilderExceptionTemplate : I18nBuilderExceptionTemplateBase
     {
@@ -30,7 +30,7 @@ namespace I18nBuilder.Template
         {
             this.Write("using global::System.Runtime.Serialization;\r\n\r\nnamespace ");
             
-            #line 9 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nBuilderExceptionTemplate.tt"
+            #line 9 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nBuilderExceptionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
