@@ -36,7 +36,7 @@ namespace I18nBuilder
             string? projectDir = GetProjectDirectory(context);
             if (projectDir == null) return;
 
-            string i18nLibPath = Path.Combine(projectDir, InternalI18nBuilderDefine.I18NLIB_DIR);
+            string i18nLibPath = Path.Combine(projectDir, "generated",InternalI18nBuilderDefine.I18NLIB_DIR);
 
             if (Directory.Exists(i18nLibPath))
             {
@@ -49,7 +49,8 @@ namespace I18nBuilder
 
             string i18nPath = Path.Combine(projectDir, InternalI18nBuilderDefine.I18N_DIR);
             if (!Directory.Exists(i18nPath)) return;
-            
+            var translationPath = Path.Combine(i18nLibPath, "Translation");
+            Directory.CreateDirectory(translationPath);
             foreach (var jsonFile in Directory.GetFiles(i18nPath, "*.json"))
             {
                 var fileName = Path.GetFileNameWithoutExtension(jsonFile);
@@ -58,9 +59,10 @@ namespace I18nBuilder
                 var translationClassTemplate = new TranslationClassTemplate(projectNamespace, keys,className);
                 var translationClassCode = translationClassTemplate.TransformText();
                 //context.AddSource($"{className}.g.cs", translationClassCode);
-                File.WriteAllText(Path.Combine(i18nLibPath, $"{className}.g.cs"), translationClassCode);
+                File.WriteAllText(Path.Combine(translationPath, $"{className}.g.cs"), translationClassCode);
                 //context.AddSource($"{className}.g.cs", SourceText.From(generatedCode, Encoding.UTF8));
             }
+
         }
 
         private static void CreateInterface(GeneratorExecutionContext context,string dirPath,string nameSpace)
