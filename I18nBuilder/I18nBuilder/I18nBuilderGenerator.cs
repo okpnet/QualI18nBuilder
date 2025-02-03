@@ -61,6 +61,7 @@ namespace I18nBuilder
             var iI18nTranslationTemplate = new II18nTranslationTemplate(nameSpace);
             var iI18nTranslationTemplateCode = iI18nTranslationTemplate.TransformText();
             context.AddSource($"II18nTranslation.g.cs", iI18nTranslationTemplateCode);
+            
 
             var iI18nBuilderTemplate = new II18nBuilderTemplate(nameSpace);
             var iI18nBuilderCode = iI18nBuilderTemplate.TransformText();
