@@ -26,7 +26,7 @@ namespace I18nBuilder.Extension
             }
         }
 
-        public static IEnumerable<string> JsonValidationToKey(string buffer)
+        public static IEnumerable<string> JsonValidationToKey(string className,string buffer)
         {
             var languageArray=GetLanguages(buffer);
             try
@@ -39,7 +39,7 @@ namespace I18nBuilder.Extension
                     var keyvalues=JsonSerializer.Deserialize<Dictionary<string, string>>(jsonBuffer);
                     if(keyvalues is null)
                     {
-                        throw new NullReferenceException();
+                        throw new NullReferenceException($"Property '{lng}' is null");
                     }
                     dictionaries.Add(keyvalues);
                 }
@@ -63,7 +63,7 @@ namespace I18nBuilder.Extension
             }
             catch (Exception ex)
             {
-                throw new I18nBuilderException("Exception throw json check processing.", ex);
+                throw new I18nBuilderException($"Exception throw json check processing.[Buffer:{className}] {ex.Message}", ex);
             }
         }
     }
