@@ -1,24 +1,26 @@
-﻿using I18nBuilder.Interface;
+
+using WpfBlazorI18nTest.I18nBuilder.Interface;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
+using System.IO;
 
-namespace I18nBuilder
+namespace WpfBlazorI18nTest.I18nBuilder
 {
-    public class TranslationBuilder : II18nBuilder, IDisposable
+    public class TranslationBuilder : II18nBuilder,IDisposable
     {
-        protected readonly II18nDefaultService _i18NDefaultService = default!;
+        protected readonly II18nDefaultService _i18NDefaultService=default!;
 
-        protected System.Text.Json.JsonSerializerOptions options =
+        protected System.Text.Json.JsonSerializerOptions options=
             new System.Text.Json.JsonSerializerOptions()
-            {
-                WriteIndented = true,
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-                PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
-
-            };
+                {
+                    WriteIndented=true,
+                    Encoder=JavaScriptEncoder.Create(UnicodeRanges.All) ,
+                    PropertyNamingPolicy=System.Text.Json.JsonNamingPolicy.CamelCase,
+                    
+                };
 
         protected IDictionary<string, II18nTranslater> _currentI18NTranslations = new Dictionary<string, II18nTranslater>();
 
@@ -39,7 +41,7 @@ namespace I18nBuilder
             {
                 return false;
             }
-            foreach (var keyvalue in _currentI18NTranslations)
+            foreach(var keyvalue in _currentI18NTranslations)
             {
                 var i18NTranslation= await CreateI18nInstanceFactory(keyvalue.Value.I18nTranslation.GetType());
                 if (i18NTranslation is null)
@@ -51,7 +53,7 @@ namespace I18nBuilder
             return true;
         }
 
-        public async Task<T> CreateTranslationsAsync<T>() where T : class, II18nTranslation, new()
+        public async Task<T> CreateTranslationsAsync<T>() where T :class, II18nTranslation,new()
         {
             var i18nTranslation = await CreateI18nInstanceFactory(typeof(T));
             if (i18nTranslation is null)
@@ -88,10 +90,10 @@ namespace I18nBuilder
         {
             try
             {
-                var path = Assembly.GetExecutingAssembly().Location;
-                var dir = System.IO.Path.GetDirectoryName(path);
-                var i18nDir = System.IO.Path.Combine(dir, "i18n");
-                return !System.IO.Directory.Exists(i18nDir) ? string.Empty : i18nDir;
+                var path=Assembly.GetExecutingAssembly().Location;
+                var dir=System.IO.Path.GetDirectoryName(path);
+                var i18nDir= System.IO.Path.Combine(dir,"i18n");
+                return !System.IO.Directory.Exists(i18nDir) ? string.Empty: i18nDir;
             }
             catch (Exception ex)
             {
@@ -100,17 +102,17 @@ namespace I18nBuilder
             }
         }
 
-        async Task<II18nTranslation?> CreateI18nInstanceFactory(Type i18nClassType)
+        async Task<II18nTranslation> CreateI18nInstanceFactory(Type i18nClassType)
         {
             var buffer = await ReadJsonStringFromFileAsync(i18nClassType.Name);
-            if (buffer is (null or ""))
+            if(buffer is (null or ""))
             {
                 return null;
             }
             try
             {
-                var instance = System.Text.Json.JsonSerializer.Deserialize(buffer, i18nClassType);
-                if (instance is not null)
+                var instance =System.Text.Json.JsonSerializer.Deserialize(buffer, i18nClassType);
+                if(instance is not null)
                 {
                     return (II18nTranslation)instance;
                 }
@@ -124,30 +126,24 @@ namespace I18nBuilder
 
         Task<string> ReadJsonStringFromFileAsync(string className)
         {
-            var dir = GetI18nDir();
-            if (dir is (null or ""))
+            var dir=GetI18nDir();
+            if(dir is (null or ""))
             {
                 return Task.FromResult(string.Empty);
             }
 
             var fileName = $"{className.ToLower()}.json";
-            var fullPath = System.IO.Path.Combine(dir, fileName);
+            var fullPath=System.IO.Path.Combine(dir,fileName );
             if (!System.IO.File.Exists(fullPath))
             {
                 return Task.FromResult(string.Empty);
             }
-            var buffer = File.ReadAllText(fullPath);
+            var buffer=File.ReadAllText(fullPath);
             var jsonDocument = JsonDocument.Parse(buffer);
             var jsonBuffer = jsonDocument.RootElement.GetProperty(_i18NDefaultService.CurrentLanguage).ToString();
             return Task.FromResult(jsonBuffer);
         }
-
-        public void Dispose()
-        {
-            _currentI18NTranslations.Clear();
-        }
-
-
+        
         class I18nTranslater<T> : II18nTranslater where T :II18nTranslation
         {
             private readonly Action<T, T> _copyAction;
@@ -160,6 +156,11 @@ namespace I18nBuilder
             }
 
             public void SetValue(II18nTranslation value) => _copyAction((T)value, (T)I18nTranslation);
+        }
+        
+        public void Dispose()
+        {
+            _currentI18NTranslations.Clear();
         }
     }
 }
