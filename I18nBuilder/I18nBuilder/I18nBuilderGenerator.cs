@@ -2,6 +2,7 @@
 using I18nBuilder.Template;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Operations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -31,14 +32,20 @@ namespace I18nBuilder
             // テストプロジェクトの名前空間を取得枠
             string projectNamespace = context.Compilation.AssemblyName ?? "I18nBuilderGenerator";
 
-            CreateInterface(context,projectNamespace);
-            CreateService(context, projectNamespace);
-            CreateLogic(context, projectNamespace);
-
-
             // MSGLibTest プロジェクト直下の i18n ディレクトリを探索
             string? projectDir = GetProjectDirectory(context);
             if (projectDir == null) return;
+
+            string i18nLibPath = Path.Combine(projectDir, InternalI18nBuilderDefine.I18NLIB_DIR);
+
+            if (Directory.Exists(i18nLibPath))
+            {
+                Directory.Delete(i18nLibPath, true);
+            }
+            Directory.CreateDirectory(i18nLibPath);
+            CreateInterface(context, i18nLibPath, projectNamespace);
+            CreateService(context, i18nLibPath, projectNamespace);
+            CreateLogic(context, i18nLibPath, projectNamespace);
 
             string i18nPath = Path.Combine(projectDir, InternalI18nBuilderDefine.I18N_DIR);
             if (!Directory.Exists(i18nPath)) return;
@@ -50,55 +57,75 @@ namespace I18nBuilder
                 var keys = GenerateClassCode(projectNamespace, className, jsonFile);
                 var translationClassTemplate = new TranslationClassTemplate(projectNamespace, keys,className);
                 var translationClassCode = translationClassTemplate.TransformText();
-                context.AddSource($"{className}.g.cs", translationClassCode);
-
+                //context.AddSource($"{className}.g.cs", translationClassCode);
+                File.WriteAllText(Path.Combine(i18nLibPath, $"{className}.g.cs"), translationClassCode);
                 //context.AddSource($"{className}.g.cs", SourceText.From(generatedCode, Encoding.UTF8));
             }
         }
 
-        private static void CreateInterface(GeneratorExecutionContext context,string nameSpace)
+        private static void CreateInterface(GeneratorExecutionContext context,string dirPath,string nameSpace)
         {
+            var interfacePath=Path.Combine(dirPath,nameof(Interface));
+            Directory.CreateDirectory(interfacePath);
             var iI18nTranslationTemplate = new II18nTranslationTemplate(nameSpace);
             var iI18nTranslationTemplateCode = iI18nTranslationTemplate.TransformText();
-            context.AddSource($"II18nTranslation.g.cs", iI18nTranslationTemplateCode);
+            //context.AddSource($"II18nTranslation.g.cs", iI18nTranslationTemplateCode);
+            File.WriteAllText(Path.Combine(interfacePath, $"II18nTranslation.g.cs"), iI18nTranslationTemplateCode);
+
 
             var iI18nBuilderTemplate = new II18nBuilderTemplate(nameSpace);
             var iI18nBuilderCode = iI18nBuilderTemplate.TransformText();
-            context.AddSource($"II18nBuilder.g.cs", iI18nBuilderCode);
+            //context.AddSource($"II18nBuilder.g.cs", iI18nBuilderCode);
+            File.WriteAllText(Path.Combine(interfacePath, $"II18nBuilder.g.cs"), iI18nBuilderCode);
 
             var iI18nDefaultServiceTemplate = new II18nDefaultServiceTemplate(nameSpace);
             var iI18nDefaultServiceCode = iI18nDefaultServiceTemplate.TransformText();
-            context.AddSource($"II18nDefaultService.g.cs", iI18nDefaultServiceCode);
+            //context.AddSource($"II18nDefaultService.g.cs", iI18nDefaultServiceCode);
+            File.WriteAllText(Path.Combine(interfacePath, $"II18nDefaultService.g.cs"), iI18nDefaultServiceCode);
 
             var iI18nTranslaterTemplate = new II18nTranslaterTemplate(nameSpace);
             var iI18nTranslaterCode = iI18nTranslaterTemplate.TransformText();
-            context.AddSource($"II18nTranslater.g.cs", iI18nTranslaterCode);
+            //context.AddSource($"II18nTranslater.g.cs", iI18nTranslaterCode);
+            File.WriteAllText(Path.Combine(interfacePath, $"II18nTranslater.g.cs"), iI18nTranslaterCode);
         }
 
-        private static void CreateService(GeneratorExecutionContext context, string nameSpace)
+        private static void CreateService(GeneratorExecutionContext context,string dirPath, string nameSpace)
         {
+            var extensionPath = Path.Combine(dirPath, nameof(Extension));
+            Directory.CreateDirectory(extensionPath);
             var i18nServiceExtensionTemplate = new I18nServiceExtensionTemplate(nameSpace);
             var i18nServiceExtensionCode = i18nServiceExtensionTemplate.TransformText();
-            context.AddSource($"I18nServiceExtension.g.cs", i18nServiceExtensionCode);
-
-            var i18nServiceTemplate = new I18nServiceTemplate(nameSpace);
-            var i18nServiceCode = i18nServiceTemplate.TransformText();
-            context.AddSource($"I18nService.g.cs", i18nServiceCode);
+            //context.AddSource($"I18nServiceExtension.g.cs", i18nServiceExtensionCode);
+            File.WriteAllText(Path.Combine(extensionPath, $"I18nServiceExtension.g.cs"), i18nServiceExtensionCode);
 
             var i18nBuilderOptionTemplate = new I18nBuilderOptionTemplate(nameSpace);
             var i18nBuilderOptionCode = i18nBuilderOptionTemplate.TransformText();
-            context.AddSource($"I18nBuilderOption.g.cs", i18nBuilderOptionCode);
+            //context.AddSource($"I18nBuilderOption.g.cs", i18nBuilderOptionCode);
+            File.WriteAllText(Path.Combine(extensionPath, $"I18nBuilderOption.g.cs"), i18nBuilderOptionCode);
+
+            var servicePath = Path.Combine(dirPath, nameof(Service));
+            Directory.CreateDirectory(servicePath);
+            var i18nServiceTemplate = new I18nServiceTemplate(nameSpace);
+            var i18nServiceCode = i18nServiceTemplate.TransformText();
+            //context.AddSource($"I18nService.g.cs", i18nServiceCode);
+            File.WriteAllText(Path.Combine(servicePath, $"I18nService.g.cs"), i18nServiceCode);
+
         }
 
-        private static void CreateLogic(GeneratorExecutionContext context, string nameSpace) 
+        private static void CreateLogic(GeneratorExecutionContext context,string dirPath, string nameSpace) 
         {
+            var exceptionPath = Path.Combine(dirPath, $"I18n{nameof(Exception)}");
+            Directory.CreateDirectory(exceptionPath);
             var i18nBuilderExceptionTemplate = new I18nBuilderExceptionTemplate(nameSpace);
             var i18nBuilderExceptionCode = i18nBuilderExceptionTemplate.TransformText();
-            context.AddSource($"i18nBuilderException.g.cs", i18nBuilderExceptionCode);
+            //context.AddSource($"i18nBuilderException.g.cs", i18nBuilderExceptionCode);
+            File.WriteAllText(Path.Combine(exceptionPath, $"i18nBuilderException.g.cs"), i18nBuilderExceptionCode);
+
 
             var translationBuilderTemplate = new TranslationBuilderTemplate(nameSpace);
             var translationBuilderCode = translationBuilderTemplate.TransformText();
-            context.AddSource($"TranslationBuilder.g.cs", translationBuilderCode);
+            //context.AddSource($"TranslationBuilder.g.cs", translationBuilderCode);
+            File.WriteAllText(Path.Combine(dirPath, $"TranslationBuilder.g.cs"), translationBuilderCode);
         }
 
         private static string? GetProjectDirectory(GeneratorExecutionContext context)
