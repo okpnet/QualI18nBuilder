@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 using global::System.Runtime.Serialization;
-
+using System;
 namespace <#=ProjectNamespace#>.I18nBuilder.I18nException
 {
     public sealed class I18nBuilderException : Exception

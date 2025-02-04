@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class TranslationBuilderTemplate : TranslationBuilderTemplateBase
     {
@@ -30,16 +30,25 @@ namespace I18nBuilder.Template
         {
             this.Write("\r\nusing ");
             
-            #line 8 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
+            #line 8 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
-            this.Write(".I18nBuilder.Interface;\r\nusing System.Linq.Expressions;\r\nusing System.Reflection;" +
-                    "\r\nusing System.Text.Encodings.Web;\r\nusing System.Text.Json;\r\nusing System.Text.U" +
-                    "nicode;\r\nusing System.IO;\r\n\r\nnamespace ");
+            this.Write(@".I18nBuilder.Interface;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
+using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
+namespace ");
             
-            #line 16 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
+            #line 19 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default

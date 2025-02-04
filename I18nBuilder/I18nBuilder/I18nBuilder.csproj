@@ -4,12 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
 	<LangVersion>latestMajor</LangVersion>
     <Nullable>enable</Nullable>
-	  <!--Add-->
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <!--Add -->
-	  <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+	  <!--the analyzer project-->
 	  <IsRoslynAnalyzer>true</IsRoslynAnalyzer>
 	  <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+	  <!--generater progect-->
 	  <IsRoslynComponent>true</IsRoslynComponent>
   </PropertyGroup>
 
@@ -73,7 +72,9 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" GeneratePathProperty="true" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" GeneratePathProperty="true" />
+		<!--use injection namespace-->
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" PrivateAssets="all" GeneratePathProperty="true" />
+		<!--use json deserialize-->
 		<PackageReference Include="System.Text.Json" Version="9.0.1" PrivateAssets="all" GeneratePathProperty="true" />
 	</ItemGroup>
 	<ItemGroup>
@@ -191,7 +192,7 @@
 		<Authors>Hayato takahashi</Authors>
 		<Company>Hayato takahashi</Company>
 	</PropertyGroup>
-
+	<!--use system.text.json library-->
 	<Target Name="GetDependencyTargetPaths" AfterTargets="ResolvePackageDependenciesForBuild">
 		<ItemGroup>
 			<TargetPathWithTargetPlatformMoniker Include="@(ResolvedCompileFileDefinitions)" IncludeRuntimeDependency="false" />
