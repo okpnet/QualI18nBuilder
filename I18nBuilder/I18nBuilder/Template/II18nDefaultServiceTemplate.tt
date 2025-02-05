@@ -4,16 +4,20 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
+using <#=ProjectNamespace#>.I18nBuilder.EventArg;
+using System;
 
 namespace <#=ProjectNamespace#>.I18nBuilder.Interface
 {
     public interface II18nDefaultService
     {
-        string[] Laangeuages { get; }
+        string[] Langeuages { get; }
 
         string CurrentLanguage { get; }
         
         string DefaultLanguage { get; }
+
+        IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; }
 
         bool ChangeCurrent(string language);
     }

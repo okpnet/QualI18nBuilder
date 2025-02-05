@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using I18nBuilder.EventArg;
+using I18nBuilder.Service;
 
 namespace I18nBuilder
 {
@@ -27,17 +28,18 @@ namespace I18nBuilder
 
         protected IDictionary<string, II18nTranslater> _currentI18NTranslations = new Dictionary<string, II18nTranslater>();
 
-        public string[] Langeuages => _i18NDefaultService.Laangeuages;
+        public string[] Langeuages => _i18NDefaultService.Langeuages;
 
         public string CurrentLanguage => _i18NDefaultService.CurrentLanguage;
 
         public string DefaultLanguage => _i18NDefaultService.DefaultLanguage;
 
-        public IObserver<LanguageChangeEventArg> LanguageChangeObservable { get; }
+        public IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; }
 
         public TranslationBuilder(II18nDefaultService i18NDefaultService)
         {
             _i18NDefaultService = i18NDefaultService;
+            LanguageChangeObservable = _i18NDefaultService.LanguageChangeObservable;
         }
 
         public async Task<bool> ChangeLocalizeAsync(string language)
@@ -58,7 +60,7 @@ namespace I18nBuilder
             }
             if (LanguageChangeObservable is not null)
             {
-                LanguageChangeObservable.OnNext(new EventArg.LanguageChangeEventArg(current, language));
+                //_i18NDefaultService.OnNext(new EventArg.LanguageChangeEventArg(current, language));
             }
             return true;
         }

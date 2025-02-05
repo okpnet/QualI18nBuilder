@@ -4,11 +4,10 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-
+using <#=ProjectNamespace#>.I18nBuilder.EventArg;
 using <#=ProjectNamespace#>.I18nBuilder.Extension;
 using <#=ProjectNamespace#>.I18nBuilder.Interface;
 using System.Linq;
-
 namespace <#=ProjectNamespace#>.I18nBuilder.Service
 {
     public sealed class I18nService:II18nDefaultService
@@ -16,11 +15,13 @@ namespace <#=ProjectNamespace#>.I18nBuilder.Service
         string _deffaultLanguage=string.Empty;
         string _currentLanguage=string.Empty;
         string[] _languages = [];
-        public string[] Laangeuages => _languages;
+        public string[] Langeuages => _languages;
 
         public string CurrentLanguage => _currentLanguage;
 
         public string DefaultLanguage => _deffaultLanguage;
+
+        public IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; }
 
         public I18nService(I18nBuilderOption i18NBuilderOption)
         {
@@ -28,6 +29,8 @@ namespace <#=ProjectNamespace#>.I18nBuilder.Service
             _languages = i18NBuilderOption.Languages;
             _currentLanguage = _deffaultLanguage;
         }
+        
+        public void OnNext(LanguageChangeEventArg languageChangeEventArg)=>_subject.OnNext(languageChangeEventArg);
 
         public bool ChangeCurrent(string language)
         {

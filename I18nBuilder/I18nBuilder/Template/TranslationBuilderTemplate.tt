@@ -39,11 +39,12 @@ namespace <#=ProjectNamespace#>.I18nBuilder
 
         public string DefaultLanguage => _i18NDefaultService.DefaultLanguage;
 
-        public IObserver<LanguageChangeEventArg> LanguageChangeObservable { get; set; }
+        public IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; set; }
 
         public TranslationBuilder(II18nDefaultService i18NDefaultService)
         {
             _i18NDefaultService = i18NDefaultService;
+            LanguageChangeObservable = _i18NDefaultService.LanguageChangeObservable;
         }
 
         public async Task<bool> ChangeLocalizeAsync(string language)
@@ -64,7 +65,7 @@ namespace <#=ProjectNamespace#>.I18nBuilder
             }
             if (LanguageChangeObservable is not null)
             {
-                LanguageChangeObservable.OnNext(new EventArg.LanguageChangeEventArg(current, language));
+                //_i18NDefaultService.OnNext(new EventArg.LanguageChangeEventArg(current, language));
             }
             return true;
         }
