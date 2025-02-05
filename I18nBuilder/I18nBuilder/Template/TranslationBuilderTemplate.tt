@@ -33,7 +33,7 @@ namespace <#=ProjectNamespace#>.I18nBuilder
 
         protected IDictionary<string, II18nTranslater> _currentI18NTranslations = new Dictionary<string, II18nTranslater>();
 
-        public string[] Langeuages => _i18NDefaultService.Laangeuages;
+        public string[] Langeuages => _i18NDefaultService.Langeuages;
 
         public string CurrentLanguage => _i18NDefaultService.CurrentLanguage;
 

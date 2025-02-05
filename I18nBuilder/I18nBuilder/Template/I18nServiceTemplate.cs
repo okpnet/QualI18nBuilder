@@ -78,8 +78,7 @@ namespace I18nBuilder.Template
             _currentLanguage = _deffaultLanguage;
         }
         
-        public void OnNext(LanguageChangeEventArg languageChangeEventArg)=>_subject.OnNext(languageChangeEventArg);
-
+        
         public bool ChangeCurrent(string language)
         {
             if (!_languages.Any(t => t == language) || language == _currentLanguage)
