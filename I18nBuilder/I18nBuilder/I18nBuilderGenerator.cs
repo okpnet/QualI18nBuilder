@@ -127,6 +127,10 @@ namespace I18nBuilder
             var translationBuilderCode = translationBuilderTemplate.TransformText();
             context.AddSource($"TranslationBuilder.g.cs", translationBuilderCode);
             //File.WriteAllText(Path.Combine(dirPath, $"TranslationBuilder.g.cs"), translationBuilderCode);
+
+            var languageChangeEventArgTemplate = new LanguageChangeEventArgTemplate(nameSpace);
+            var languageChangeEventArgCode = languageChangeEventArgTemplate.TransformText();
+            context.AddSource($"LanguageChangeEventArg.g.cs", languageChangeEventArgCode);
         }
 
         private static string? GetProjectDirectory(GeneratorExecutionContext context)

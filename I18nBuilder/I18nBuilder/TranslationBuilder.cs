@@ -7,11 +7,13 @@ using System.Text.Unicode;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using I18nBuilder.EventArg;
 
 namespace I18nBuilder
 {
     public class TranslationBuilder : II18nBuilder, IDisposable
     {
+
         protected readonly II18nDefaultService _i18NDefaultService = default!;
 
         protected System.Text.Json.JsonSerializerOptions options =
@@ -25,11 +27,13 @@ namespace I18nBuilder
 
         protected IDictionary<string, II18nTranslater> _currentI18NTranslations = new Dictionary<string, II18nTranslater>();
 
-        public string[] Laangeuages => _i18NDefaultService.Laangeuages;
+        public string[] Langeuages => _i18NDefaultService.Laangeuages;
 
         public string CurrentLanguage => _i18NDefaultService.CurrentLanguage;
 
         public string DefaultLanguage => _i18NDefaultService.DefaultLanguage;
+
+        public IObserver<LanguageChangeEventArg> LanguageChangeObservable { get; }
 
         public TranslationBuilder(II18nDefaultService i18NDefaultService)
         {
@@ -38,6 +42,7 @@ namespace I18nBuilder
 
         public async Task<bool> ChangeLocalizeAsync(string language)
         {
+            var current = _i18NDefaultService.CurrentLanguage;
             if (!_i18NDefaultService.ChangeCurrent(language))
             {
                 return false;
@@ -50,6 +55,10 @@ namespace I18nBuilder
                     continue;
                 }
                 keyvalue.Value.SetValue(i18NTranslation);
+            }
+            if (LanguageChangeObservable is not null)
+            {
+                LanguageChangeObservable.OnNext(new EventArg.LanguageChangeEventArg(current, language));
             }
             return true;
         }

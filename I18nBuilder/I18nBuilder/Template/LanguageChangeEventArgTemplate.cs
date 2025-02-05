@@ -18,9 +18,9 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nBuilderTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeEventArgTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class II18nBuilderTemplate : II18nBuilderTemplateBase
+    public partial class LanguageChangeEventArgTemplate : LanguageChangeEventArgTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,37 +28,30 @@ namespace I18nBuilder.Template
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using ");
+            this.Write("\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\n\r\nnamespa" +
+                    "ce ");
             
-            #line 7 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nBuilderTemplate.tt"
+            #line 12 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeEventArgTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
-            this.Write(".I18nBuilder.EventArg;\r\nusing System.Threading.Tasks;\r\n\r\nnamespace ");
-            
-            #line 10 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nBuilderTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
-            
-            #line default
-            #line hidden
-            this.Write(@".I18nBuilder.Interface
+            this.Write(@".I18nBuilder.EventArg
 {
-    public interface II18nBuilder
+    public sealed class LanguageChangeEventArg
     {
-        string[] Langeuages { get; }
+        public string FromLanguage { get; }
 
-        string CurrentLanguage { get; }
-        
-        string DefaultLanguage { get; }
+        public string ToLanguage { get; }
 
-        IObserver<LanguageChangeEventArg> LanguageChangeObservable { get; set; }
-
-        Task<bool> ChangeLocalizeAsync(string language);
-
-        Task<T> CreateTranslationsAsync<T>() where T: class,II18nTranslation,new();
+        public LanguageChangeEventArg(string fromLanguage, string toLanguage)
+        {
+            FromLanguage = fromLanguage;
+            ToLanguage = toLanguage;
+        }
     }
-}");
+}
+");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -70,7 +63,7 @@ namespace I18nBuilder.Template
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class II18nBuilderTemplateBase
+    public class LanguageChangeEventArgTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

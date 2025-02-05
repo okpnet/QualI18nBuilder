@@ -4,18 +4,20 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-
+using <#=ProjectNamespace#>.I18nBuilder.EventArg;
 using System.Threading.Tasks;
 
 namespace <#=ProjectNamespace#>.I18nBuilder.Interface
 {
     public interface II18nBuilder
     {
-        string[] Laangeuages { get; }
+        string[] Langeuages { get; }
 
         string CurrentLanguage { get; }
         
         string DefaultLanguage { get; }
+
+        IObserver<LanguageChangeEventArg> LanguageChangeObservable { get; set; }
 
         Task<bool> ChangeLocalizeAsync(string language);
 
