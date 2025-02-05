@@ -5,7 +5,7 @@ using System.Text;
 
 namespace I18nBuilder.Observer
 {
-    public class LanguageChangeObserver : IObserver<LanguageChangeEventArg>
+    public sealed class LanguageChangeObserver : IObserver<LanguageChangeEventArg>
     {
         Action<LanguageChangeEventArg> _action;
         public LanguageChangeObserver(Action<LanguageChangeEventArg> action) 

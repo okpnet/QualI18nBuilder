@@ -1,14 +1,16 @@
 ﻿using I18nBuilder.EventArg;
 using I18nBuilder.Extension;
 using I18nBuilder.Interface;
+using I18nBuilder.Observer;
 //using System.Reactive.Linq;
 //using System.Reactive.Subjects;
 
 namespace I18nBuilder.Service
 {
-    public sealed class I18nService:II18nDefaultService
+    public sealed class I18nService:II18nDefaultService,IObservable<LanguageChangeEventArg>
     {
         //ISubject<object> _subject = new Subject<object>();
+        IList<IObserver<LanguageChangeEventArg>> _observers;
         string _deffaultLanguage=string.Empty;
         string _currentLanguage=string.Empty;
         string[] _languages = [];
@@ -17,8 +19,6 @@ namespace I18nBuilder.Service
         public string CurrentLanguage => _currentLanguage;
 
         public string DefaultLanguage => _deffaultLanguage;
-
-        public IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; }
 
         public I18nService(I18nBuilderOption i18NBuilderOption)
         {
@@ -39,5 +39,12 @@ namespace I18nBuilder.Service
             _currentLanguage = language;
             return true;
         }
+
+        public IDisposable Subscribe(IObserver<LanguageChangeEventArg> observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public IDisposable Subscribe(Action<LanguageChangeEventArg> observer)=> Subscribe(new LanguageChangeObserver(observer));
     }
 }
