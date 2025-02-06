@@ -9,12 +9,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using I18nBuilder.EventArg;
 using I18nBuilder.Service;
-
+using I18nBuilder.Extension;
 namespace I18nBuilder
 {
     public class TranslationBuilder : II18nBuilder, IDisposable
     {
         protected readonly II18nDefaultService _i18NDefaultService = default!;
+
+        protected readonly IDisposable _disposable=default!;
 
         protected System.Text.Json.JsonSerializerOptions options =
             new System.Text.Json.JsonSerializerOptions()
@@ -37,26 +39,31 @@ namespace I18nBuilder
         public TranslationBuilder(II18nDefaultService i18NDefaultService)
         {
             _i18NDefaultService = i18NDefaultService;
+
+            _disposable = ((IObservable<string>)_i18NDefaultService).Subscribe(t => System.Diagnostics.Debug.WriteLine(t));//async t =>
+            //{
+            //    foreach (var keyvalue in _currentI18NTranslations)
+            //    {
+            //        var i18NTranslation = await CreateI18nInstanceFactory(keyvalue.Value.I18nTranslation.GetType());
+            //        if (i18NTranslation is null)
+            //        {
+            //            continue;
+            //        }
+            //        keyvalue.Value.SetValue(i18NTranslation);
+            //    }
+            //});
         }
 
-        public async Task<bool> ChangeLocalizeAsync(string language)
+        public Task<bool> ChangeLocalizeAsync(string language)
         {
             var current = _i18NDefaultService.CurrentLanguage;
             if (!_i18NDefaultService.ChangeCurrent(language))
             {
-                return false;
+                return Task.FromResult(false);
             }
-            foreach (var keyvalue in _currentI18NTranslations)
-            {
-                var i18NTranslation= await CreateI18nInstanceFactory(keyvalue.Value.I18nTranslation.GetType());
-                if (i18NTranslation is null)
-                {
-                    continue;
-                }
-                keyvalue.Value.SetValue(i18NTranslation);
-            }
+
             _i18NDefaultService.ObserverExecute(current);
-            return true;
+            return Task.FromResult(true);
         }
 
         public async Task<T> CreateTranslationsAsync<T>() where T : class, II18nTranslation, new()
@@ -153,6 +160,7 @@ namespace I18nBuilder
         public void Dispose()
         {
             _currentI18NTranslations.Clear();
+            _disposable.Dispose();
         }
 
         class I18nTranslater<T> : II18nTranslater where T :II18nTranslation

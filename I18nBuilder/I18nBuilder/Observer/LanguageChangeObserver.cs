@@ -5,10 +5,10 @@ using System.Text;
 
 namespace I18nBuilder.Observer
 {
-    public sealed class LanguageChangeObserver : IObserver<LanguageChangeEventArg>
+    public sealed class LanguageChangeObserver<T> : IObserver<T>
     {
-        Action<LanguageChangeEventArg> _action;
-        public LanguageChangeObserver(Action<LanguageChangeEventArg> action) 
+        Action<T> _action;
+        public LanguageChangeObserver(Action<T> action) 
         {
             _action = action;
         }
@@ -20,6 +20,6 @@ namespace I18nBuilder.Observer
         {
         }
 
-        public void OnNext(LanguageChangeEventArg value)=>_action(value);
+        public void OnNext(T value)=>_action(value);
     }
 }

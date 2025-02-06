@@ -5,10 +5,12 @@ using I18nBuilder.Observer;
 
 namespace I18nBuilder.Service
 {
-    public sealed class I18nService:II18nDefaultService,IObservable<LanguageChangeEventArg>
+    public sealed class I18nService:II18nDefaultService,IObservable<LanguageChangeEventArg>, IObservable<string>
     {
         IList<IObserver<LanguageChangeEventArg>> _observers=new List<IObserver<LanguageChangeEventArg>>();
-        string _deffaultLanguage=string.Empty;
+        IList<IObserver<string>> _changeObservers = new List<IObserver<string>>();
+
+        string _deffaultLanguage =string.Empty;
         string _currentLanguage=string.Empty;
         string[] _languages = [];
         public string[] Langeuages => _languages;
@@ -35,18 +37,27 @@ namespace I18nBuilder.Service
             return true;
         }
 
-
-
         public IDisposable Subscribe(IObserver<LanguageChangeEventArg> observer)
         {
             _observers.Add(observer);
             return new Unsubscriber(()=>_observers.Remove(observer));
         }
 
-        public IDisposable Subscribe(Action<LanguageChangeEventArg> observer)=> Subscribe(new LanguageChangeObserver(observer));
+        public IDisposable Subscribe(IObserver<string> observer)
+        {
+            _changeObservers.Add(observer);
+            return new Unsubscriber(() => _changeObservers.Remove(observer));
+        }
+
+        public IDisposable Subscribe(Action<LanguageChangeEventArg> observer)=> Subscribe(new LanguageChangeObserver<LanguageChangeEventArg>(observer));
 
         public void ObserverExecute(string beforeLanguage)
         {
+            foreach (var observer in _changeObservers)
+            {
+                observer.OnNext(CurrentLanguage);
+            }
+
             foreach (var observer in _observers)
             {
                 observer.OnNext(new LanguageChangeEventArg(beforeLanguage, CurrentLanguage));

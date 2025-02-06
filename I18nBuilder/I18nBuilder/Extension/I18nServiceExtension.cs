@@ -30,9 +30,9 @@ namespace I18nBuilder.Extension
             return serviceCollection;
         }
 
-        public static IDisposable Subscribe(this IObservable<LanguageChangeEventArg> observer,Action<LanguageChangeEventArg> action)
+        public static IDisposable Subscribe<T>(this IObservable<T> observer,Action<T> action)
         {
-            if(observer is not I18nService service)
+            if(observer is not IObservable<T> service)
             {
                 throw new I18nException.I18nBuilderException("observer argment is not IObservable", new NotImplementedException());
             }
