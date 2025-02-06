@@ -16,9 +16,7 @@ namespace <#=ProjectNamespace#>.I18nBuilder.Interface
         string CurrentLanguage { get; }
         
         string DefaultLanguage { get; }
-
-        IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; }
-
+        
         bool ChangeCurrent(string language);
     }
 }

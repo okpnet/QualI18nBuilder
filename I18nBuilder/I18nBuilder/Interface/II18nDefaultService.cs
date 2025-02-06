@@ -13,9 +13,6 @@ namespace I18nBuilder.Interface
         
         string DefaultLanguage { get; }
 
-        IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; }
-        //void OnNext(LanguageChangeEventArg languageChangeEventArg);
-
         bool ChangeCurrent(string language);
     }
 }

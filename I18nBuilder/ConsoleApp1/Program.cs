@@ -13,6 +13,7 @@ serviceCollection.AddI18nBuilderService(option =>
 });
 var provider = serviceCollection.BuildServiceProvider();
 var i18n = provider.GetRequiredService<II18nBuilder>();
+i18n.LanguageChangeObservable.Subscribe(arg => Console.WriteLine($"!!!!==>{arg.ToLanguage}"));
 var page = await i18n.CreateTranslationsAsync<ConsoleApp1.I18nBuilder.Page1>();
 var common = await i18n.CreateTranslationsAsync<ConsoleApp1.I18nBuilder.Common>();
 

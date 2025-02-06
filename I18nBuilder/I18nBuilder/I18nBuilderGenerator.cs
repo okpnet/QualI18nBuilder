@@ -46,6 +46,7 @@ namespace I18nBuilder
             CreateInterface(context, i18nLibPath, projectNamespace);
             CreateService(context, i18nLibPath, projectNamespace);
             CreateLogic(context, i18nLibPath, projectNamespace);
+            CreateObserver(context, i18nLibPath, projectNamespace);
 
             string i18nPath = Path.Combine(projectDir, InternalI18nBuilderDefine.I18N_DIR);
             if (!Directory.Exists(i18nPath)) return;
@@ -90,6 +91,12 @@ namespace I18nBuilder
             //File.WriteAllText(Path.Combine(interfacePath, $"II18nTranslater.g.cs"), iI18nTranslaterCode);
         }
 
+        private static void CreateObserver(GeneratorExecutionContext context, string dirPath, string nameSpace)
+        {
+            var languageChangeObserverTemplate = new LanguageChangeObserverTemplate(nameSpace);
+            var languageChangeObserverCode = languageChangeObserverTemplate.TransformText();
+            context.AddSource($"LanguageChangeObserver.g.cs", languageChangeObserverCode);
+        }
         private static void CreateService(GeneratorExecutionContext context,string dirPath, string nameSpace)
         {
             var extensionPath = Path.Combine(dirPath, nameof(Extension));

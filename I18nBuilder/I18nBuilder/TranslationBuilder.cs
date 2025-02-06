@@ -14,7 +14,6 @@ namespace I18nBuilder
 {
     public class TranslationBuilder : II18nBuilder, IDisposable
     {
-
         protected readonly II18nDefaultService _i18NDefaultService = default!;
 
         protected System.Text.Json.JsonSerializerOptions options =
@@ -23,7 +22,6 @@ namespace I18nBuilder
                 WriteIndented = true,
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
                 PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
-
             };
 
         protected IDictionary<string, II18nTranslater> _currentI18NTranslations = new Dictionary<string, II18nTranslater>();
@@ -34,12 +32,11 @@ namespace I18nBuilder
 
         public string DefaultLanguage => _i18NDefaultService.DefaultLanguage;
 
-        public IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; }
+        public IObservable<LanguageChangeEventArg> LanguageChangeObservable => (IObservable<LanguageChangeEventArg>)_i18NDefaultService;
 
         public TranslationBuilder(II18nDefaultService i18NDefaultService)
         {
             _i18NDefaultService = i18NDefaultService;
-            LanguageChangeObservable = _i18NDefaultService.LanguageChangeObservable;
         }
 
         public async Task<bool> ChangeLocalizeAsync(string language)
@@ -57,10 +54,6 @@ namespace I18nBuilder
                     continue;
                 }
                 keyvalue.Value.SetValue(i18NTranslation);
-            }
-            if (LanguageChangeObservable is not null)
-            {
-                //_i18NDefaultService.OnNext(new EventArg.LanguageChangeEventArg(current, language));
             }
             return true;
         }
@@ -160,7 +153,6 @@ namespace I18nBuilder
         {
             _currentI18NTranslations.Clear();
         }
-
 
         class I18nTranslater<T> : II18nTranslater where T :II18nTranslation
         {

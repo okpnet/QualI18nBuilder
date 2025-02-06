@@ -7,6 +7,7 @@
 
 using <#=ProjectNamespace#>.I18nBuilder.Interface;
 using <#=ProjectNamespace#>.I18nBuilder.Service;
+using <#=ProjectNamespace#>.I18nBuilder.EventArg;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -34,6 +35,15 @@ namespace <#=ProjectNamespace#>.I18nBuilder.Extension
                 return builder;
             });
             return serviceCollection;
+        }
+
+        public static IDisposable Subscribe(this IObservable<LanguageChangeEventArg> observer,Action<LanguageChangeEventArg> action)
+        {
+            if(observer is not I18nService service)
+            {
+                throw new I18nException.I18nBuilderException("observer argment is not IObservable", new NotImplementedException());
+            }
+            return service.Subscribe(action);
         }
     }
 }

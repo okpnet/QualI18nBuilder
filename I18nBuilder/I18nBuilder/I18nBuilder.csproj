@@ -58,6 +58,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>LanguageChangeEventArgTemplate.tt</DependentUpon>
     </None>
+    <None Include="Template\LanguageChangeObserverTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LanguageChangeObserverTemplate.tt</DependentUpon>
+    </None>
     <None Include="Template\TranslationBuilderTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -122,6 +127,10 @@
 	    <Generator>TextTemplatingFilePreprocessor</Generator>
 	    <LastGenOutput>LanguageChangeEventArgTemplate.cs</LastGenOutput>
 	  </None>
+	  <None Update="Template\LanguageChangeObserverTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>LanguageChangeObserverTemplate.cs</LastGenOutput>
+	  </None>
 	  <None Update="Template\TranslationBuilderTemplate.tt">
 	    <Generator>TextTemplatingFilePreprocessor</Generator>
 	    <LastGenOutput>TranslationBuilderTemplate.cs</LastGenOutput>
@@ -184,6 +193,11 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>LanguageChangeEventArgTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\LanguageChangeObserverTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>LanguageChangeObserverTemplate.tt</DependentUpon>
 	  </Compile>
 	  <Compile Update="Template\TranslationBuilderTemplate.cs">
 	    <DesignTime>True</DesignTime>

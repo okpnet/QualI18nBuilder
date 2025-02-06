@@ -17,7 +17,7 @@ namespace <#=ProjectNamespace#>.I18nBuilder.Interface
         
         string DefaultLanguage { get; }
 
-        IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; set; }
+        IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; }
 
         Task<bool> ChangeLocalizeAsync(string language);
 

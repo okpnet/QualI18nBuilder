@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class I18nServiceExtensionTemplate : I18nServiceExtensionTemplateBase
     {
@@ -30,22 +30,29 @@ namespace I18nBuilder.Template
         {
             this.Write("\r\nusing ");
             
-            #line 8 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
+            #line 8 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(".I18nBuilder.Interface;\r\nusing ");
             
-            #line 9 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
+            #line 9 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
-            this.Write(".I18nBuilder.Service;\r\nusing Microsoft.Extensions.DependencyInjection;\r\nusing Sys" +
-                    "tem;\r\nusing System.Linq;\r\n\r\nnamespace ");
+            this.Write(".I18nBuilder.Service;\r\nusing ");
             
-            #line 14 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
+            #line 10 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
+            
+            #line default
+            #line hidden
+            this.Write(".I18nBuilder.EventArg;\r\nusing Microsoft.Extensions.DependencyInjection;\r\nusing Sy" +
+                    "stem;\r\nusing System.Linq;\r\n\r\nnamespace ");
+            
+            #line 15 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceExtensionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
@@ -73,6 +80,15 @@ namespace I18nBuilder.Template
                 return builder;
             });
             return serviceCollection;
+        }
+
+        public static IDisposable Subscribe(this IObservable<LanguageChangeEventArg> observer,Action<LanguageChangeEventArg> action)
+        {
+            if(observer is not I18nService service)
+            {
+                throw new I18nException.I18nBuilderException(""observer argment is not IObservable"", new NotImplementedException());
+            }
+            return service.Subscribe(action);
         }
     }
 }

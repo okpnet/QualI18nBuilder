@@ -2,15 +2,12 @@
 using I18nBuilder.Extension;
 using I18nBuilder.Interface;
 using I18nBuilder.Observer;
-//using System.Reactive.Linq;
-//using System.Reactive.Subjects;
 
 namespace I18nBuilder.Service
 {
     public sealed class I18nService:II18nDefaultService,IObservable<LanguageChangeEventArg>
     {
-        //ISubject<object> _subject = new Subject<object>();
-        IList<IObserver<LanguageChangeEventArg>> _observers;
+        IList<IObserver<LanguageChangeEventArg>> _observers=new List<IObserver<LanguageChangeEventArg>>();
         string _deffaultLanguage=string.Empty;
         string _currentLanguage=string.Empty;
         string[] _languages = [];
@@ -25,10 +22,7 @@ namespace I18nBuilder.Service
             _deffaultLanguage = i18NBuilderOption.DefaultLanguage;
             _languages = i18NBuilderOption.Languages;
             _currentLanguage = _deffaultLanguage;
-            //LanguageChangeObservable = _subject.AsObservable<object>().OfType<LanguageChangeEventArg>();
         }
-
-        //public void OnNext(LanguageChangeEventArg languageChangeEventArg)=>_subject.OnNext(languageChangeEventArg);
 
         public bool ChangeCurrent(string language)
         {
@@ -36,15 +30,36 @@ namespace I18nBuilder.Service
             {
                 return false;
             }
+            var beforeLanguage = _currentLanguage;
             _currentLanguage = language;
+            foreach(var observer in _observers)
+            {
+                observer.OnNext(new LanguageChangeEventArg(beforeLanguage, language));
+            }
             return true;
         }
 
         public IDisposable Subscribe(IObserver<LanguageChangeEventArg> observer)
         {
             _observers.Add(observer);
+            return new Unsubscriber(()=>_observers.Remove(observer));
         }
 
         public IDisposable Subscribe(Action<LanguageChangeEventArg> observer)=> Subscribe(new LanguageChangeObserver(observer));
+
+        private class Unsubscriber : IDisposable
+        {
+            private Action _ansubscribe;
+
+            public Unsubscriber(Action ansubscribe)
+            {
+                _ansubscribe = ansubscribe;
+            }
+
+            public void Dispose()
+            {
+                _ansubscribe.Invoke();
+            }
+        }
     }
 }

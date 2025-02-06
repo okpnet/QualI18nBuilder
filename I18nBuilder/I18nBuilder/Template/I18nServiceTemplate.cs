@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class I18nServiceTemplate : I18nServiceTemplateBase
     {
@@ -30,67 +30,65 @@ namespace I18nBuilder.Template
         {
             this.Write("using ");
             
-            #line 7 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+            #line 7 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(".I18nBuilder.EventArg;\r\nusing ");
             
-            #line 8 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+            #line 8 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(".I18nBuilder.Extension;\r\nusing ");
             
-            #line 9 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+            #line 9 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
-            this.Write(".I18nBuilder.Interface;\r\nusing System.Linq;\r\nnamespace ");
+            this.Write(".I18nBuilder.Interface;\r\nusing ");
             
-            #line 11 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+            #line 10 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
-            this.Write(@".I18nBuilder.Service
-{
-    public sealed class I18nService:II18nDefaultService
-    {
-        string _deffaultLanguage=string.Empty;
-        string _currentLanguage=string.Empty;
-        string[] _languages = [];
-        public string[] Langeuages => _languages;
-
-        public string CurrentLanguage => _currentLanguage;
-
-        public string DefaultLanguage => _deffaultLanguage;
-
-        public IObservable<LanguageChangeEventArg> LanguageChangeObservable { get; }
-
-        public I18nService(I18nBuilderOption i18NBuilderOption)
-        {
-            _deffaultLanguage = i18NBuilderOption.DefaultLanguage;
-            _languages = i18NBuilderOption.Languages;
-            _currentLanguage = _deffaultLanguage;
-        }
-        
-        
-        public bool ChangeCurrent(string language)
-        {
-            if (!_languages.Any(t => t == language) || language == _currentLanguage)
-            {
-                return false;
-            }
-            _currentLanguage = language;
-            return true;
-        }
-    }
-}
-");
+            this.Write(".I18nBuilder.Observer;\r\nusing System.Linq;\r\nnamespace ");
+            
+            #line 12 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nServiceTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
+            
+            #line default
+            #line hidden
+            this.Write(".I18nBuilder.Service\r\n{\r\n    public sealed class I18nService:II18nDefaultService," +
+                    "IObservable<LanguageChangeEventArg>\r\n    {\r\n        IList<IObserver<LanguageChan" +
+                    "geEventArg>> _observers=new List<IObserver<LanguageChangeEventArg>>();\r\n        " +
+                    "string _deffaultLanguage=string.Empty;\r\n        string _currentLanguage=string.E" +
+                    "mpty;\r\n        string[] _languages = [];\r\n        public string[] Langeuages => " +
+                    "_languages;\r\n\r\n        public string CurrentLanguage => _currentLanguage;\r\n\r\n   " +
+                    "     public string DefaultLanguage => _deffaultLanguage;\r\n\r\n        public I18nS" +
+                    "ervice(I18nBuilderOption i18NBuilderOption)\r\n        {\r\n            _deffaultLan" +
+                    "guage = i18NBuilderOption.DefaultLanguage;\r\n            _languages = i18NBuilder" +
+                    "Option.Languages;\r\n            _currentLanguage = _deffaultLanguage;\r\n        }\r" +
+                    "\n\r\n        public bool ChangeCurrent(string language)\r\n        {\r\n            if" +
+                    " (!_languages.Any(t => t == language) || language == _currentLanguage)\r\n        " +
+                    "    {\r\n                return false;\r\n            }\r\n            var beforeLangu" +
+                    "age = _currentLanguage;\r\n            _currentLanguage = language;\r\n            f" +
+                    "oreach(var observer in _observers)\r\n            {\r\n                observer.OnNe" +
+                    "xt(new LanguageChangeEventArg(beforeLanguage, language));\r\n            }\r\n      " +
+                    "      return true;\r\n        }\r\n\r\n        public IDisposable Subscribe(IObserver<" +
+                    "LanguageChangeEventArg> observer)\r\n        {\r\n            _observers.Add(observe" +
+                    "r);\r\n            return new Unsubscriber(()=>_observers.Remove(observer));\r\n    " +
+                    "    }\r\n\r\n        public IDisposable Subscribe(Action<LanguageChangeEventArg> obs" +
+                    "erver)=> Subscribe(new LanguageChangeObserver(observer));\r\n\r\n        private cla" +
+                    "ss Unsubscriber : IDisposable\r\n        {\r\n            private Action _ansubscrib" +
+                    "e;\r\n\r\n            public Unsubscriber(Action ansubscribe)\r\n            {\r\n      " +
+                    "          _ansubscribe = ansubscribe;\r\n            }\r\n\r\n            public void " +
+                    "Dispose()\r\n            {\r\n                _ansubscribe.Invoke();\r\n            }\r" +
+                    "\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
