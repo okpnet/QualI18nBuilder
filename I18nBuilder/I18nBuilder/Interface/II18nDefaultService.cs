@@ -14,5 +14,7 @@ namespace I18nBuilder.Interface
         string DefaultLanguage { get; }
 
         bool ChangeCurrent(string language);
+
+        void ObserverExecute(string beforeLanguage);
     }
 }

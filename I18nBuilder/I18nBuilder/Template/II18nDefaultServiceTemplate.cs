@@ -53,6 +53,8 @@ namespace I18nBuilder.Template
         string DefaultLanguage { get; }
         
         bool ChangeCurrent(string language);
+
+        void ObserverExecute(string beforeLanguage);
     }
 }");
             return this.GenerationEnvironment.ToString();

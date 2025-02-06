@@ -32,12 +32,10 @@ namespace I18nBuilder.Service
             }
             var beforeLanguage = _currentLanguage;
             _currentLanguage = language;
-            foreach(var observer in _observers)
-            {
-                observer.OnNext(new LanguageChangeEventArg(beforeLanguage, language));
-            }
             return true;
         }
+
+
 
         public IDisposable Subscribe(IObserver<LanguageChangeEventArg> observer)
         {
@@ -46,6 +44,14 @@ namespace I18nBuilder.Service
         }
 
         public IDisposable Subscribe(Action<LanguageChangeEventArg> observer)=> Subscribe(new LanguageChangeObserver(observer));
+
+        public void ObserverExecute(string beforeLanguage)
+        {
+            foreach (var observer in _observers)
+            {
+                observer.OnNext(new LanguageChangeEventArg(beforeLanguage, CurrentLanguage));
+            }
+        }
 
         private class Unsubscriber : IDisposable
         {

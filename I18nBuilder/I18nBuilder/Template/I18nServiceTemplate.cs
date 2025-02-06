@@ -76,19 +76,20 @@ namespace I18nBuilder.Template
                     "\n\r\n        public bool ChangeCurrent(string language)\r\n        {\r\n            if" +
                     " (!_languages.Any(t => t == language) || language == _currentLanguage)\r\n        " +
                     "    {\r\n                return false;\r\n            }\r\n            var beforeLangu" +
-                    "age = _currentLanguage;\r\n            _currentLanguage = language;\r\n            f" +
-                    "oreach(var observer in _observers)\r\n            {\r\n                observer.OnNe" +
-                    "xt(new LanguageChangeEventArg(beforeLanguage, language));\r\n            }\r\n      " +
-                    "      return true;\r\n        }\r\n\r\n        public IDisposable Subscribe(IObserver<" +
-                    "LanguageChangeEventArg> observer)\r\n        {\r\n            _observers.Add(observe" +
-                    "r);\r\n            return new Unsubscriber(()=>_observers.Remove(observer));\r\n    " +
-                    "    }\r\n\r\n        public IDisposable Subscribe(Action<LanguageChangeEventArg> obs" +
-                    "erver)=> Subscribe(new LanguageChangeObserver(observer));\r\n\r\n        private cla" +
-                    "ss Unsubscriber : IDisposable\r\n        {\r\n            private Action _ansubscrib" +
-                    "e;\r\n\r\n            public Unsubscriber(Action ansubscribe)\r\n            {\r\n      " +
-                    "          _ansubscribe = ansubscribe;\r\n            }\r\n\r\n            public void " +
-                    "Dispose()\r\n            {\r\n                _ansubscribe.Invoke();\r\n            }\r" +
-                    "\n        }\r\n    }\r\n}\r\n");
+                    "age = _currentLanguage;\r\n            _currentLanguage = language;\r\n            r" +
+                    "eturn true;\r\n        }\r\n\r\n        public IDisposable Subscribe(IObserver<Languag" +
+                    "eChangeEventArg> observer)\r\n        {\r\n            _observers.Add(observer);\r\n  " +
+                    "          return new Unsubscriber(()=>_observers.Remove(observer));\r\n        }\r\n" +
+                    "\r\n        public IDisposable Subscribe(Action<LanguageChangeEventArg> observer)=" +
+                    "> Subscribe(new LanguageChangeObserver(observer));\r\n\r\n        public void Observ" +
+                    "erExecute(string beforeLanguage)\r\n        {\r\n            foreach (var observer i" +
+                    "n _observers)\r\n            {\r\n                observer.OnNext(new LanguageChange" +
+                    "EventArg(beforeLanguage, CurrentLanguage));\r\n            }\r\n        }\r\n\r\n       " +
+                    " private class Unsubscriber : IDisposable\r\n        {\r\n            private Action" +
+                    " _ansubscribe;\r\n\r\n            public Unsubscriber(Action ansubscribe)\r\n         " +
+                    "   {\r\n                _ansubscribe = ansubscribe;\r\n            }\r\n\r\n            " +
+                    "public void Dispose()\r\n            {\r\n                _ansubscribe.Invoke();\r\n  " +
+                    "          }\r\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

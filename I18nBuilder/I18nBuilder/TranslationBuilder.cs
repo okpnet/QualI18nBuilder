@@ -55,6 +55,7 @@ namespace I18nBuilder
                 }
                 keyvalue.Value.SetValue(i18NTranslation);
             }
+            _i18NDefaultService.ObserverExecute(current);
             return true;
         }
 
