@@ -4,6 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
+
 using <#=ProjectNamespace#>.I18nBuilder.EventArg;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,15 @@ using System.Text;
 
 namespace <#=ProjectNamespace#>.I18nBuilder.Observer
 {
-    public sealed class LanguageChangeObserver<T> : IObserver<T>
+    public sealed class I18nObserver<T> : IObserver<T>
     {
         Action<T> _action;
-        public LanguageChangeObserver(Action<T> action) 
+
+        public I18nObserver(Action<T> action) 
         {
             _action = action;
         }
+
         public void OnCompleted()
         {
         }

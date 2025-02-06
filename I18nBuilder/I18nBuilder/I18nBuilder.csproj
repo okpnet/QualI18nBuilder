@@ -23,6 +23,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>I18nBuilderOptionTemplate.tt</DependentUpon>
     </None>
+    <None Include="Template\I18nObservableTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>I18nObservableTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Template\I18nObserverTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>I18nObserverTemplate.tt</DependentUpon>
+    </None>
     <None Include="Template\I18nServiceExtensionTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -57,11 +67,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>LanguageChangeEventArgTemplate.tt</DependentUpon>
-    </None>
-    <None Include="Template\LanguageChangeObserverTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>LanguageChangeObserverTemplate.tt</DependentUpon>
     </None>
     <None Include="Template\TranslationBuilderTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -99,6 +104,14 @@
 	    <Generator>TextTemplatingFilePreprocessor</Generator>
 	    <LastGenOutput>I18nBuilderOptionTemplate.cs</LastGenOutput>
 	  </None>
+	  <None Update="Template\I18nObservableTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>I18nObservableTemplate.cs</LastGenOutput>
+	  </None>
+	  <None Update="Template\I18nObserverTemplate.tt">
+	    <Generator>TextTemplatingFilePreprocessor</Generator>
+	    <LastGenOutput>I18nObserverTemplate.cs</LastGenOutput>
+	  </None>
 	  <None Update="Template\I18nServiceExtensionTemplate.tt">
 	    <Generator>TextTemplatingFilePreprocessor</Generator>
 	    <LastGenOutput>I18nServiceExtensionTemplate.cs</LastGenOutput>
@@ -127,10 +140,6 @@
 	    <Generator>TextTemplatingFilePreprocessor</Generator>
 	    <LastGenOutput>LanguageChangeEventArgTemplate.cs</LastGenOutput>
 	  </None>
-	  <None Update="Template\LanguageChangeObserverTemplate.tt">
-	    <Generator>TextTemplatingFilePreprocessor</Generator>
-	    <LastGenOutput>LanguageChangeObserverTemplate.cs</LastGenOutput>
-	  </None>
 	  <None Update="Template\TranslationBuilderTemplate.tt">
 	    <Generator>TextTemplatingFilePreprocessor</Generator>
 	    <LastGenOutput>TranslationBuilderTemplate.cs</LastGenOutput>
@@ -153,6 +162,16 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>I18nBuilderOptionTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\I18nObservableTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>I18nObservableTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Template\I18nObserverTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>I18nObserverTemplate.tt</DependentUpon>
 	  </Compile>
 	  <Compile Update="Template\I18nServiceExtensionTemplate.cs">
 	    <DesignTime>True</DesignTime>
@@ -193,11 +212,6 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>LanguageChangeEventArgTemplate.tt</DependentUpon>
-	  </Compile>
-	  <Compile Update="Template\LanguageChangeObserverTemplate.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>LanguageChangeObserverTemplate.tt</DependentUpon>
 	  </Compile>
 	  <Compile Update="Template\TranslationBuilderTemplate.cs">
 	    <DesignTime>True</DesignTime>

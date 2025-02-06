@@ -51,7 +51,11 @@ namespace I18nBuilder.Template
         string CurrentLanguage { get; }
         
         string DefaultLanguage { get; }
-        
+
+        public IObservable<LanguageChangeEventArg> AfterLanguageChangeObservable { get; }
+
+        public IObservable<string> LanguageChangeObservable { get; }
+
         bool ChangeCurrent(string language);
 
         void ObserverExecute(string beforeLanguage);

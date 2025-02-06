@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using I18nBuilder.EventArg;
 using I18nBuilder.Service;
 using I18nBuilder.Extension;
+using I18nBuilder.Observer;
 namespace I18nBuilder
 {
     public class TranslationBuilder : II18nBuilder, IDisposable
@@ -34,24 +35,26 @@ namespace I18nBuilder
 
         public string DefaultLanguage => _i18NDefaultService.DefaultLanguage;
 
-        public IObservable<LanguageChangeEventArg> LanguageChangeObservable => (IObservable<LanguageChangeEventArg>)_i18NDefaultService;
+        public IObservable<LanguageChangeEventArg> LanguageChangeObservable => _i18NDefaultService.AfterLanguageChangeObservable;
 
         public TranslationBuilder(II18nDefaultService i18NDefaultService)
         {
             _i18NDefaultService = i18NDefaultService;
 
-            _disposable = ((IObservable<string>)_i18NDefaultService).Subscribe(t => System.Diagnostics.Debug.WriteLine(t));//async t =>
-            //{
-            //    foreach (var keyvalue in _currentI18NTranslations)
-            //    {
-            //        var i18NTranslation = await CreateI18nInstanceFactory(keyvalue.Value.I18nTranslation.GetType());
-            //        if (i18NTranslation is null)
-            //        {
-            //            continue;
-            //        }
-            //        keyvalue.Value.SetValue(i18NTranslation);
-            //    }
-            //});
+            _disposable = _i18NDefaultService.LanguageChangeObservable.Subscribe(
+                new I18nObserver<string>(async (t)=>
+                {
+                    foreach (var keyvalue in _currentI18NTranslations)
+                    {
+                        var i18NTranslation = await CreateI18nInstanceFactory(keyvalue.Value.I18nTranslation.GetType());
+                        if (i18NTranslation is null)
+                        {
+                            continue;
+                        }
+                        keyvalue.Value.SetValue(i18NTranslation);
+                    }
+                })
+            );
         }
 
         public Task<bool> ChangeLocalizeAsync(string language)

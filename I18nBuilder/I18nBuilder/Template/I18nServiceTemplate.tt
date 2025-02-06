@@ -11,19 +11,23 @@ using <#=ProjectNamespace#>.I18nBuilder.Observer;
 using System.Linq;
 namespace <#=ProjectNamespace#>.I18nBuilder.Service
 {
-    public sealed class I18nService:II18nDefaultService,IObservable<LanguageChangeEventArg>, IObservable<string>
+    public sealed class I18nService:II18nDefaultService
     {
-        IList<IObserver<LanguageChangeEventArg>> _observers=new List<IObserver<LanguageChangeEventArg>>();
-        IList<IObserver<string>> _changeObservers = new List<IObserver<string>>();
-
         string _deffaultLanguage =string.Empty;
+
         string _currentLanguage=string.Empty;
+        
         string[] _languages = [];
+
         public string[] Langeuages => _languages;
 
         public string CurrentLanguage => _currentLanguage;
 
         public string DefaultLanguage => _deffaultLanguage;
+
+        public IObservable<LanguageChangeEventArg> AfterLanguageChangeObservable { get; }=new I18nObservable<LanguageChangeEventArg>();
+
+        public IObservable<string> LanguageChangeObservable { get; } = new I18nObservable<string>();
 
         public I18nService(I18nBuilderOption i18NBuilderOption)
         {
@@ -43,46 +47,10 @@ namespace <#=ProjectNamespace#>.I18nBuilder.Service
             return true;
         }
 
-        public IDisposable Subscribe(IObserver<LanguageChangeEventArg> observer)
-        {
-            _observers.Add(observer);
-            return new Unsubscriber(()=>_observers.Remove(observer));
-        }
-
-        public IDisposable Subscribe(IObserver<string> observer)
-        {
-            _changeObservers.Add(observer);
-            return new Unsubscriber(() => _changeObservers.Remove(observer));
-        }
-
-        public IDisposable Subscribe(Action<LanguageChangeEventArg> observer)=> Subscribe(new LanguageChangeObserver<LanguageChangeEventArg>(observer));
-
         public void ObserverExecute(string beforeLanguage)
         {
-            foreach (var observer in _changeObservers)
-            {
-                observer.OnNext(CurrentLanguage);
-            }
-
-            foreach (var observer in _observers)
-            {
-                observer.OnNext(new LanguageChangeEventArg(beforeLanguage, CurrentLanguage));
-            }
-        }
-
-        private class Unsubscriber : IDisposable
-        {
-            private Action _ansubscribe;
-
-            public Unsubscriber(Action ansubscribe)
-            {
-                _ansubscribe = ansubscribe;
-            }
-
-            public void Dispose()
-            {
-                _ansubscribe.Invoke();
-            }
+            (LanguageChangeObservable as I18nObservable<string>)?.Execute(_currentLanguage);
+            (AfterLanguageChangeObservable as I18nObservable<LanguageChangeEventArg>)?.Execute(new LanguageChangeEventArg(beforeLanguage, _currentLanguage));
         }
     }
 }

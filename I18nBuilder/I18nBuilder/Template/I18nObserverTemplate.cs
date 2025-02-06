@@ -18,9 +18,9 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObserverTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class TranslationBuilderTemplate : TranslationBuilderTemplateBase
+    public partial class I18nObserverTemplate : I18nObserverTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,138 +28,44 @@ namespace I18nBuilder.Template
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using ");
+            this.Write("\r\nusing ");
             
-            #line 7 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
+            #line 8 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObserverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
-            this.Write(".I18nBuilder.EventArg;\r\nusing ");
+            this.Write(".I18nBuilder.EventArg;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing S" +
+                    "ystem.Text;\r\n\r\nnamespace ");
             
-            #line 8 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
+            #line 13 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObserverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
-            this.Write(".I18nBuilder.Extension;\r\nusing ");
-            
-            #line 9 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
-            
-            #line default
-            #line hidden
-            this.Write(".I18nBuilder.Interface;\r\nusing ");
-            
-            #line 10 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
-            
-            #line default
-            #line hidden
-            this.Write(@".I18nBuilder.Observer;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Unicode;
-using System.IO;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
+            this.Write(@".I18nBuilder.Observer
+{
+    public sealed class I18nObserver<T> : IObserver<T>
+    {
+        Action<T> _action;
 
-namespace ");
-            
-            #line 22 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationBuilderTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
-            
-            #line default
-            #line hidden
-            this.Write(".I18nBuilder\r\n{\r\n    public class TranslationBuilder : II18nBuilder, IDisposable\r" +
-                    "\n    {\r\n        protected readonly II18nDefaultService _i18NDefaultService = def" +
-                    "ault!;\r\n\r\n        protected readonly IDisposable _disposable=default!;\r\n\r\n      " +
-                    "  protected System.Text.Json.JsonSerializerOptions options =\r\n            new Sy" +
-                    "stem.Text.Json.JsonSerializerOptions()\r\n            {\r\n                WriteInde" +
-                    "nted = true,\r\n                Encoder = JavaScriptEncoder.Create(UnicodeRanges.A" +
-                    "ll),\r\n                PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.C" +
-                    "amelCase,\r\n            };\r\n\r\n        protected IDictionary<string, II18nTranslat" +
-                    "er> _currentI18NTranslations = new Dictionary<string, II18nTranslater>();\r\n\r\n   " +
-                    "     public string[] Langeuages => _i18NDefaultService.Langeuages;\r\n\r\n        pu" +
-                    "blic string CurrentLanguage => _i18NDefaultService.CurrentLanguage;\r\n\r\n        p" +
-                    "ublic string DefaultLanguage => _i18NDefaultService.DefaultLanguage;\r\n        \r\n" +
-                    "        public IObservable<LanguageChangeEventArg> LanguageChangeObservable => _" +
-                    "i18NDefaultService.AfterLanguageChangeObservable;\r\n\r\n        public TranslationB" +
-                    "uilder(II18nDefaultService i18NDefaultService)\r\n        {\r\n            _i18NDefa" +
-                    "ultService = i18NDefaultService;\r\n\r\n            _disposable = _i18NDefaultServic" +
-                    "e.LanguageChangeObservable.Subscribe(\r\n                new I18nObserver<string>(" +
-                    "async (t)=>\r\n                {\r\n                    foreach (var keyvalue in _cu" +
-                    "rrentI18NTranslations)\r\n                    {\r\n                        var i18NT" +
-                    "ranslation = await CreateI18nInstanceFactory(keyvalue.Value.I18nTranslation.GetT" +
-                    "ype());\r\n                        if (i18NTranslation is null)\r\n                 " +
-                    "       {\r\n                            continue;\r\n                        }\r\n    " +
-                    "                    keyvalue.Value.SetValue(i18NTranslation);\r\n                 " +
-                    "   }\r\n                })\r\n            );\r\n        }\r\n\r\n        public Task<bool>" +
-                    " ChangeLocalizeAsync(string language)\r\n        {\r\n            var current = _i18" +
-                    "NDefaultService.CurrentLanguage;\r\n            if (!_i18NDefaultService.ChangeCur" +
-                    "rent(language))\r\n            {\r\n                return Task.FromResult(false);\r\n" +
-                    "            }\r\n\r\n            _i18NDefaultService.ObserverExecute(current);\r\n    " +
-                    "        return Task.FromResult(true);\r\n        }\r\n\r\n        public async Task<T>" +
-                    " CreateTranslationsAsync<T>() where T : class, II18nTranslation, new()\r\n        " +
-                    "{\r\n            var i18nTranslation = await CreateI18nInstanceFactory(typeof(T));" +
-                    "\r\n            if (i18nTranslation is null)\r\n            {\r\n                retur" +
-                    "n new T();\r\n            }\r\n            if (!_currentI18NTranslations.ContainsKey" +
-                    "(typeof(T).Name))\r\n            {\r\n                var sourceParam = Expression.P" +
-                    "arameter(typeof(T), \"source\");\r\n                var destinationParam = Expressio" +
-                    "n.Parameter(typeof(T), \"destination\");\r\n\r\n                var bindings = typeof(" +
-                    "T).GetProperties(BindingFlags.Public | BindingFlags.Instance)\r\n                 " +
-                    "   .Where(prop => prop.CanRead && prop.CanWrite)\r\n                    .Select(pr" +
-                    "op =>\r\n                    {\r\n                        var sourceProperty = Expre" +
-                    "ssion.Property(sourceParam, prop);\r\n                        var destinationPrope" +
-                    "rty = Expression.Property(destinationParam, prop);\r\n                        retu" +
-                    "rn Expression.Assign(destinationProperty, sourceProperty);\r\n                    " +
-                    "});\r\n\r\n                var body = Expression.Block(bindings);\r\n                v" +
-                    "ar action = Expression.Lambda<Action<T, T>>(body, sourceParam, destinationParam)" +
-                    ".Compile();\r\n                var translator = new I18nTranslater<T>(i18nTranslat" +
-                    "ion, action);\r\n                _currentI18NTranslations.Add(typeof(T).Name, tran" +
-                    "slator);\r\n            }\r\n            else\r\n            {\r\n                _curre" +
-                    "ntI18NTranslations[typeof(T).Name].SetValue(i18nTranslation);\r\n            }\r\n  " +
-                    "          return (T)_currentI18NTranslations[typeof(T).Name].I18nTranslation;\r\n " +
-                    "       }\r\n\r\n        protected virtual string GetI18nDir()\r\n        {\r\n          " +
-                    "  try\r\n            {\r\n                var path = Assembly.GetExecutingAssembly()" +
-                    ".Location;\r\n                var dir = System.IO.Path.GetDirectoryName(path);\r\n  " +
-                    "              var i18nDir = System.IO.Path.Combine(dir, \"i18n\");\r\n              " +
-                    "  return !System.IO.Directory.Exists(i18nDir) ? string.Empty : i18nDir;\r\n       " +
-                    "     }\r\n            catch (Exception ex)\r\n            {\r\n                System." +
-                    "Diagnostics.Debug.WriteLine(ex.Message);\r\n                return string.Empty;\r\n" +
-                    "            }\r\n        }\r\n\r\n        async Task<II18nTranslation?> CreateI18nInst" +
-                    "anceFactory(Type i18nClassType)\r\n        {\r\n            var buffer = await ReadJ" +
-                    "sonStringFromFileAsync(i18nClassType.Name);\r\n            if (buffer is (null or " +
-                    "\"\"))\r\n            {\r\n                return null;\r\n            }\r\n            tr" +
-                    "y\r\n            {\r\n                var instance = System.Text.Json.JsonSerializer" +
-                    ".Deserialize(buffer, i18nClassType);\r\n                if (instance is not null)\r" +
-                    "\n                {\r\n                    return (II18nTranslation)instance;\r\n    " +
-                    "            }\r\n            }\r\n            catch (Exception ex)\r\n            {\r\n " +
-                    "               System.Diagnostics.Debug.WriteLine($\"{ex.Message}\");\r\n           " +
-                    " }\r\n            return null;\r\n        }\r\n\r\n        Task<string> ReadJsonStringFr" +
-                    "omFileAsync(string className)\r\n        {\r\n            var dir = GetI18nDir();\r\n " +
-                    "           if (dir is (null or \"\"))\r\n            {\r\n                return Task." +
-                    "FromResult(string.Empty);\r\n            }\r\n\r\n            var fileName = $\"{classN" +
-                    "ame.ToLower()}.json\";\r\n            var fullPath = System.IO.Path.Combine(dir, fi" +
-                    "leName);\r\n            if (!System.IO.File.Exists(fullPath))\r\n            {\r\n    " +
-                    "            return Task.FromResult(string.Empty);\r\n            }\r\n            va" +
-                    "r buffer = File.ReadAllText(fullPath);\r\n            var jsonDocument = JsonDocum" +
-                    "ent.Parse(buffer);\r\n            var jsonBuffer = jsonDocument.RootElement.GetPro" +
-                    "perty(_i18NDefaultService.CurrentLanguage).ToString();\r\n            return Task." +
-                    "FromResult(jsonBuffer);\r\n        }\r\n\r\n        public void Dispose()\r\n        {\r\n" +
-                    "            _currentI18NTranslations.Clear();\r\n            _disposable.Dispose()" +
-                    ";\r\n        }\r\n\r\n        class I18nTranslater<T> : II18nTranslater where T :II18n" +
-                    "Translation\r\n        {\r\n            private readonly Action<T, T> _copyAction;\r\n" +
-                    "            public II18nTranslation I18nTranslation { get; }\r\n\r\n            publ" +
-                    "ic I18nTranslater(II18nTranslation i18nTranslation, Action<T, T> copyAction)\r\n  " +
-                    "          {\r\n                I18nTranslation = i18nTranslation;\r\n               " +
-                    " _copyAction=copyAction;\r\n            }\r\n\r\n            public void SetValue(II18" +
-                    "nTranslation value) => _copyAction((T)value, (T)I18nTranslation);\r\n        }\r\n  " +
-                    "  }\r\n}\r\n");
+        public I18nObserver(Action<T> action) 
+        {
+            _action = action;
+        }
+
+        public void OnCompleted()
+        {
+        }
+
+        public void OnError(Exception error)
+        {
+        }
+
+        public void OnNext(T value)=>_action(value);
+    }
+}
+");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -171,7 +77,7 @@ namespace ");
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class TranslationBuilderTemplateBase
+    public class I18nObserverTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

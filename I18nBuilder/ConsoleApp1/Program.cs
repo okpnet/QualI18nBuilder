@@ -2,6 +2,7 @@
 //using I18nBuilder;
 using ConsoleApp1.I18nBuilder.Extension;
 using ConsoleApp1.I18nBuilder.Interface;
+using ConsoleApp1.I18nBuilder.EventArg;
 
 await Task.Delay(10);
 Console.WriteLine("Hello, World!");
@@ -13,7 +14,7 @@ serviceCollection.AddI18nBuilderService(option =>
 });
 var provider = serviceCollection.BuildServiceProvider();
 var i18n = provider.GetRequiredService<II18nBuilder>();
-i18n.LanguageChangeObservable.Subscribe(arg => Console.WriteLine($"!!!!==>{arg.ToLanguage}"));
+i18n.LanguageChangeObservable.Subscribe(new ConsoleApp1.I18nBuilder.Observer.I18nObserver<LanguageChangeEventArg>( arg => Console.WriteLine($"!!!!==>{arg.ToLanguage}")));
 var page = await i18n.CreateTranslationsAsync<ConsoleApp1.I18nBuilder.Page1>();
 var common = await i18n.CreateTranslationsAsync<ConsoleApp1.I18nBuilder.Common>();
 

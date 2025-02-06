@@ -18,9 +18,9 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeObserverTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObservableTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class LanguageChangeObserverTemplate : LanguageChangeObserverTemplateBase
+    public partial class I18nObservableTemplate : I18nObservableTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,39 +28,57 @@ namespace I18nBuilder.Template
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using ");
+            this.Write("\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\n\r\nnamespa" +
+                    "ce ");
             
-            #line 7 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeObserverTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
-            
-            #line default
-            #line hidden
-            this.Write(".I18nBuilder.EventArg;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing S" +
-                    "ystem.Text;\r\n\r\nnamespace ");
-            
-            #line 12 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeObserverTemplate.tt"
+            #line 12 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObservableTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(@".I18nBuilder.Observer
 {
-    public sealed class LanguageChangeObserver<T> : IObserver<T>
+    public sealed class I18nObservable<T> : IObservable<T>
     {
-        Action<T> _action;
-        public LanguageChangeObserver(Action<T> action) 
-        {
-            _action = action;
-        }
-        public void OnCompleted()
+        private IList<IObserver<T>> _observerCollection=new List<IObserver<T>>();
+
+        public I18nObservable()
         {
         }
 
-        public void OnError(Exception error)
+        public IDisposable Subscribe(IObserver<T> observer)
         {
+            _observerCollection.Add(observer);
+            return new Unsubscriber(() => _observerCollection.Remove(observer));
         }
 
-        public void OnNext(T value)=>_action(value);
+        public IDisposable Subscribe(Action<T> observer)
+        {
+            return Subscribe(new I18nObserver<T>(observer));
+        }
+
+        public void Execute(T argment)
+        {
+            foreach(var observer in _observerCollection)
+            {
+                observer.OnNext(argment);
+            }
+        }
+
+        private class Unsubscriber : IDisposable
+        {
+            private Action _ansubscribe;
+
+            public Unsubscriber(Action ansubscribe)
+            {
+                _ansubscribe = ansubscribe;
+            }
+
+            public void Dispose()
+            {
+                _ansubscribe.Invoke();
+            }
+        }
     }
 }
 ");
@@ -75,7 +93,7 @@ namespace I18nBuilder.Template
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class LanguageChangeObserverTemplateBase
+    public class I18nObservableTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

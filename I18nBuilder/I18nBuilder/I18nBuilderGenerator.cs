@@ -93,9 +93,13 @@ namespace I18nBuilder
 
         private static void CreateObserver(GeneratorExecutionContext context, string dirPath, string nameSpace)
         {
-            var languageChangeObserverTemplate = new LanguageChangeObserverTemplate(nameSpace);
-            var languageChangeObserverCode = languageChangeObserverTemplate.TransformText();
-            context.AddSource($"LanguageChangeObserver.g.cs", languageChangeObserverCode);
+            var i18nObservableTemplate = new I18nObservableTemplate(nameSpace);
+            var i18nObservableCode = i18nObservableTemplate.TransformText();
+            context.AddSource($"I18nObservable.g.cs", i18nObservableCode);
+
+            var i18nObserverTemplate = new I18nObserverTemplate(nameSpace);
+            var i18nObserverCode = i18nObserverTemplate.TransformText();
+            context.AddSource($"I18nObserver.g.cs", i18nObserverCode);
         }
         private static void CreateService(GeneratorExecutionContext context,string dirPath, string nameSpace)
         {

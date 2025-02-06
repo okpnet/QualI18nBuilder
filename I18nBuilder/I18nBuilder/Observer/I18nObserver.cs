@@ -5,13 +5,14 @@ using System.Text;
 
 namespace I18nBuilder.Observer
 {
-    public sealed class LanguageChangeObserver<T> : IObserver<T>
+    public sealed class I18nObserver<T> : IObserver<T>
     {
         Action<T> _action;
-        public LanguageChangeObserver(Action<T> action) 
+        public I18nObserver(Action<T> action) 
         {
             _action = action;
         }
+
         public void OnCompleted()
         {
         }
