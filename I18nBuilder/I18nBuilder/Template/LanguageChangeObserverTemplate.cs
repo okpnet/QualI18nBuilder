@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeObserverTemplate.tt"
+    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeObserverTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class LanguageChangeObserverTemplate : LanguageChangeObserverTemplateBase
     {
@@ -30,7 +30,7 @@ namespace I18nBuilder.Template
         {
             this.Write("using ");
             
-            #line 7 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeObserverTemplate.tt"
+            #line 7 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeObserverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
@@ -38,7 +38,7 @@ namespace I18nBuilder.Template
             this.Write(".I18nBuilder.EventArg;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing S" +
                     "ystem.Text;\r\n\r\nnamespace ");
             
-            #line 12 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeObserverTemplate.tt"
+            #line 12 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\LanguageChangeObserverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
