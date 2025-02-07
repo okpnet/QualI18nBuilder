@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObserverTemplate.tt"
+    #line 1 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObserverTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class I18nObserverTemplate : I18nObserverTemplateBase
     {
@@ -30,7 +30,7 @@ namespace I18nBuilder.Template
         {
             this.Write("\r\nusing ");
             
-            #line 8 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObserverTemplate.tt"
+            #line 8 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObserverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
@@ -38,7 +38,7 @@ namespace I18nBuilder.Template
             this.Write(".I18nBuilder.EventArg;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing S" +
                     "ystem.Text;\r\n\r\nnamespace ");
             
-            #line 13 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObserverTemplate.tt"
+            #line 13 "E:\GitRepos\PrivateGit\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\I18nObserverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
