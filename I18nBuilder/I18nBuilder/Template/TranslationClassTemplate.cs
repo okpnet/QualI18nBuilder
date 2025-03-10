@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class TranslationClassTemplate : TranslationClassTemplateBase
     {
@@ -30,55 +30,78 @@ namespace I18nBuilder.Template
         {
             this.Write("\r\nusing ");
             
-            #line 8 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
+            #line 8 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(".I18nBuilder.Interface;\r\n\r\nnamespace ");
             
-            #line 10 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
+            #line 10 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(".I18nBuilder\r\n{\r\n    public partial class ");
             
-            #line 12 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
+            #line 12 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
-            this.Write(":II18nTranslation  \r\n    {\r\n        public string this[string key] \r\n        {\r\n " +
-                    "           get\r\n            {\r\n                return key switch\r\n              " +
-                    "  {\r\n                ");
-            
-            #line 20 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
+            this.Write(@":II18nTranslation  
+    {
+        private IReadOnlyDictionary<string, string> _translations = new Dictionary<string, string>();
 
-                PushIndent("                ");
-                foreach(var member in Keys){
-                    WriteLine($"    \"{member}\" => this.{member},");
+        public string this[string key] 
+        {
+            get
+            {
+                if (!_translations.ContainsKey(key))
+                {
+                    return key;
                 }
-                ClearIndent();
-                
+                return _translations[key];
+            }
+        }
+
+        public ");
+            
+            #line 28 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
-            this.Write("                    _=>key\r\n                };\r\n            }\r\n        }\r\n       " +
-                    " ");
+            this.Write("()\r\n        {\r\n            _translations = new Dictionary<string, string>()\r\n    " +
+                    "        {\r\n                    ");
             
-            #line 31 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
+            #line 32 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
+
+                    PushIndent("                ");
+                    foreach(var member in Keys){
+                        WriteLine($"{{ \"{member}\" , {member} }},");
+                    }
+                    ClearIndent();
+                    
+            
+            #line default
+            #line hidden
+            this.Write("            };\r\n        }\r\n\r\n        ");
+            
+            #line 42 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
 
         PushIndent("        ");
-        foreach(var menber in Keys){
-            WriteLine($"public string {menber} {{ get; set; }}");   
+        foreach(var menber in Keys)
+        {
+            WriteLine($"public string {menber} {{ get; set; }} = \"{menber}\";");   
         }
         ClearIndent();
         
             
             #line default
             #line hidden
-            this.Write("    }\r\n}");
+            this.Write("        \r\n        public bool ContainsKey(string key)=>_translations.ContainsKey(" +
+                    "key);\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

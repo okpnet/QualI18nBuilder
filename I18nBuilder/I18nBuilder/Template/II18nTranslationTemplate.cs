@@ -18,7 +18,7 @@ namespace I18nBuilder.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nTranslationTemplate.tt"
+    #line 1 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nTranslationTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class II18nTranslationTemplate : II18nTranslationTemplateBase
     {
@@ -30,13 +30,14 @@ namespace I18nBuilder.Template
         {
             this.Write("\r\nnamespace ");
             
-            #line 8 "C:\Users\htakahashi\Documents\GitRep\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nTranslationTemplate.tt"
+            #line 8 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\II18nTranslationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ProjectNamespace));
             
             #line default
             #line hidden
             this.Write(".I18nBuilder.Interface\r\n{\r\n    public interface II18nTranslation\r\n    {\r\n        " +
-                    "string this[string key] { get; }\r\n    }\r\n}\r\n");
+                    "string this[string key] { get; }\r\n\r\n        bool ContainsKey(string key);\r\n    }" +
+                    "\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

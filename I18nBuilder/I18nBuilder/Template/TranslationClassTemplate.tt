@@ -11,29 +11,43 @@ namespace <#=ProjectNamespace#>.I18nBuilder
 {
     public partial class <#=ClassName#>:II18nTranslation  
     {
+        private IReadOnlyDictionary<string, string> _translations = new Dictionary<string, string>();
+
         public string this[string key] 
         {
             get
             {
-                return key switch
+                if (!_translations.ContainsKey(key))
                 {
-                <#
-                PushIndent("                ");
-                foreach(var member in Keys){
-                    WriteLine($"    \"{member}\" => this.{member},");
+                    return key;
                 }
-                ClearIndent();
-                #>
-                    _=>key
-                };
+                return _translations[key];
             }
         }
+
+        public <#=ClassName#>()
+        {
+            _translations = new Dictionary<string, string>()
+            {
+                    <#
+                    PushIndent("                ");
+                    foreach(var member in Keys){
+                        WriteLine($"{{ \"{member}\" , {member} }},");
+                    }
+                    ClearIndent();
+                    #>
+            };
+        }
+
         <#
         PushIndent("        ");
-        foreach(var menber in Keys){
-            WriteLine($"public string {menber} {{ get; set; }}");   
+        foreach(var menber in Keys)
+        {
+            WriteLine($"public string {menber} {{ get; set; }} = \"{menber}\";");   
         }
         ClearIndent();
         #>
+        
+        public bool ContainsKey(string key)=>_translations.ContainsKey(key);
     }
 }
