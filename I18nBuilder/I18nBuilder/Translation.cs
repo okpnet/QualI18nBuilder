@@ -4,7 +4,7 @@ namespace I18nBuilder
 {
     public abstract class Translation : II18nTranslation
     {
-        private IReadOnlyDictionary<string, string> _translations = new Dictionary<string, string>();
+        private IReadOnlyDictionary<string, Func<string>> _translations = new Dictionary<string, Func<string>>();
 
         public string this[string key] 
         {
@@ -14,15 +14,15 @@ namespace I18nBuilder
                 {
                     return key;
                 }
-                return _translations[key];
+                return _translations[key]();
             }
         }
 
         protected Translation()
         {
-            _translations = new Dictionary<string, string>()
+            _translations = new Dictionary<string, Func<string>>()
             {
-                { "","" },
+                { "",()=>"" },
             };
         }
 

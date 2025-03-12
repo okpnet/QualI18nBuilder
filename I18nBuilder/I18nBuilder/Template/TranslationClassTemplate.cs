@@ -51,7 +51,7 @@ namespace I18nBuilder.Template
             #line hidden
             this.Write(@":II18nTranslation  
     {
-        private IReadOnlyDictionary<string, string> _translations = new Dictionary<string, string>();
+        private IReadOnlyDictionary<string, Func<string>> _translations = new Dictionary<string, Func<string>>();
 
         public string this[string key] 
         {
@@ -61,7 +61,7 @@ namespace I18nBuilder.Template
                 {
                     return key;
                 }
-                return _translations[key];
+                return _translations[key]();
             }
         }
 
@@ -72,17 +72,17 @@ namespace I18nBuilder.Template
             
             #line default
             #line hidden
-            this.Write("()\r\n        {\r\n            _translations = new Dictionary<string, string>()\r\n    " +
-                    "        {\r\n                    ");
+            this.Write("()\r\n        {\r\n            _translations = new Dictionary<string, Func<string>>()" +
+                    "\r\n            {\r\n                ");
             
             #line 32 "C:\Users\htakahashi\Documents\GitRep\CsCommonLibrary\QualI18nBuilder\I18nBuilder\I18nBuilder\Template\TranslationClassTemplate.tt"
 
-                    PushIndent("                ");
-                    foreach(var member in Keys){
-                        WriteLine($"{{ \"{member}\" , {member} }},");
-                    }
-                    ClearIndent();
-                    
+                PushIndent("                ");
+                foreach(var member in Keys){
+                    WriteLine($"{{ \"{member}\" , ()=>{member} }},");
+                }
+                ClearIndent();
+                
             
             #line default
             #line hidden

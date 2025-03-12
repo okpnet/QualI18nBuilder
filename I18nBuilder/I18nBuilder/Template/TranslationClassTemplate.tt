@@ -11,7 +11,7 @@ namespace <#=ProjectNamespace#>.I18nBuilder
 {
     public partial class <#=ClassName#>:II18nTranslation  
     {
-        private IReadOnlyDictionary<string, string> _translations = new Dictionary<string, string>();
+        private IReadOnlyDictionary<string, Func<string>> _translations = new Dictionary<string, Func<string>>();
 
         public string this[string key] 
         {
@@ -21,21 +21,21 @@ namespace <#=ProjectNamespace#>.I18nBuilder
                 {
                     return key;
                 }
-                return _translations[key];
+                return _translations[key]();
             }
         }
 
         public <#=ClassName#>()
         {
-            _translations = new Dictionary<string, string>()
+            _translations = new Dictionary<string, Func<string>>()
             {
-                    <#
-                    PushIndent("                ");
-                    foreach(var member in Keys){
-                        WriteLine($"{{ \"{member}\" , {member} }},");
-                    }
-                    ClearIndent();
-                    #>
+                <#
+                PushIndent("                ");
+                foreach(var member in Keys){
+                    WriteLine($"{{ \"{member}\" , ()=>{member} }},");
+                }
+                ClearIndent();
+                #>
             };
         }
 
